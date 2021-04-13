@@ -1,0 +1,38 @@
+.main_group_name {
+  color: #000080;
+}
+
+#test_start_btn {
+  margin: 6px;
+  width: 280px;
+}
+
+.tr_failed {
+  background-color: #ff7495;
+}
+
+/* #test_main_table {
+  display: none;
+} */
+
+#dialog_test_journal{
+      top: 0;
+      left: 0;
+      display: none;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+}
+
+#test_journal_text {
+    overflow: scroll;
+    width: 600px;
+    height: 400px;
+    text-align: left;
+}
+
+#img_test_load {
+  position: relative;
+  left: -12px;
+  top: -6px;
+}

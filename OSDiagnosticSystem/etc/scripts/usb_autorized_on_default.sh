@@ -1,0 +1,1 @@
+for x in $( sudo find /sys/bus/usb/devices -name  "*" | sudo grep "[1-99]-[1-99]"); do  dev=$x/authorized; if [ -e "$dev" ]; then    SER=$(sudo udevadm info $x | sudo grep -Po  '(?<=ID_SERIAL_SHORT=).*'); if [ "$SER" == '' ]; then continue; else   echo 1 | sudo tee $dev; fi;  fi;  done;

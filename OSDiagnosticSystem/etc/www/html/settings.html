@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>settings</title>
+        <link href="../css/settings.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="../js/settings.js" async></script>
+    </head>
+    <body>
+        <div id="dialog_settings" class="dialog_window" title="Настройки ПО">
+            <div id="div_settings_mw">
+                <table border="0" cellpadding="2" cellspacing="0" id="settings_table">
+                    <tbody id="tb_settings" />
+                </table>
+            </div>
+            <div style="margin-top: 6px; float: left;">
+                <img id="settings_reboot" src="images/reboot.png" title="Перезагрузка сервера" onclick="settings_reboot()"/>
+            </div>
+            <div style="margin-top: 6px; float: right;">
+                <button id="btn_settings_accept">Применить</button>
+                <button id="btn_settings_close">Закрыть</button>
+            </div>
+        </div>
+    </body>
+</html>

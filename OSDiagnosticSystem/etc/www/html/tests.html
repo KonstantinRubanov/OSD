@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>control</title>
+<link href="../css/tests.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/tests.js"></script>
+</head>
+
+<body>
+  <div id="tests_block">
+    <div class="title_div">
+        <div class="div_loader">
+            <img id="tst_img_loader" src="images/loader.gif" width="32px" height="32px" style="padding: 5px;"/>
+            <img id="tst_img_loader_start" class="btn_updates" src="images/update.png" width="32px" height="32px" onclick="testsGetHosts()"/>
+          </div>
+      <p align="center" class="main_group_name">Тестирование средств защиты информации</p>
+    </div>
+    <div class="main_right_panel" style="float: right;">
+      <button id="test_start_btn" class="defbutton" onclick="testsAllHosts()" >Тестирование всех АРМ
+        <img id="img_test_load" src="images/loader.gif" width="32px" height="32px"/>
+      </button>
+    </div>
+    <table border="0" cellpadding="5" cellspacing="0" class="main_table" id="test_main_table">
+      <thead class="main_tbl_head">
+        <tr>
+          <th align="left">№</th>
+          <th align="left">Имя хоста</th>
+          <th align="left">Тестирование</th>
+          <th align="center">Результат тестирования</th>
+          <th align="right">Журнал</th>
+        </tr>
+      </thead>
+      <tbody class="main_tbl_body" id="tbl_tests">
+      </tbody>
+    </table>
+  </div>
+  <div id="dialog_test_journal" class="dialog_window" title="Вывод журнала">
+    <div id="test_journal_text">
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>control</title>
+<link href="../css/control.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../libs/datatables.min.js"></script>
+<script type="text/javascript" src="../js/control.js" async=""></script>
+</head>
+<body>
+    <div id="control_block">
+        <div class="title_div">
+            <div class="div_loader">
+                <img id="img_control_loader" src="images/loader.gif" width="32px" height="32px" style="padding: 5px;"/>
+                <img id="img_control_loader_start" class="btn_updates" src="images/update.png" width="32px" height="32px" onclick="controlGetList()"/>
+            </div>
+            <p align="center" class="main_group_name">Контроль целостности</p>
+        </div>
+        <div class="main_right_panel" style="float: right;">
+            <div>
+                <button id="control_scan_hosts_btn" class="defbutton" onclick="controlCheckAllHosts()" >КЦ всех АРМ
+                    <img id="img_control_check_all" src="images/loader.gif" width="32px" height="32px"/>
+                </button>
+            </div>
+        </div>
+        <table border="0" cellpadding="5" cellspacing="0" class="main_table" id="control_main_table">
+            <thead class="main_tbl_head">
+                <tr>
+                    <th align="left">№</th>
+                    <th align="center">Хост</th>
+                    <th align="center">Контрольная точка</th>
+                    <th align="center">Проверка</th>
+                    <th align="center">Журнал</th>
+                    <th align="center">Аудит</th>
+                </tr>
+            </thead>
+            <tbody class="main_tbl_body" id="tbl_control"></tbody>
+        </table>
+    </div>
+    <div id="dialog_control_journal" class="dialog_window" title="Вывод журнала">
+        <div id="control_journal_text" />
+    </div>
+    <div id="dialog_control_audit" class="dialog_window" title="Вывод аудита">
+        <div id="control_audit_text" />
+    </div>
+    <div id="dialog_control_settings" class="dialog_window" title="Настройка КЦ">
+        <div id="control_hostname">
+            <span  style="float: left; padding: 6px;">Хост: </span>
+            <span id="control_span_hostname" />
+        </div>
+        <div id="control_dir_settings">
+            <div id="control_div_set_dir">
+                <div class="control_dir_header" >
+                    <span>Проверяемые каталоги</span>
+                    <img src="images/folder-add.png"/>
+                </div>
+                <table class="control_table_dir">
+                    <tr><th>Тип</th><th>Путь</th><th>Алиас</th><th></th></tr>
+                  <tbody id="control_tb_set" />
+                </table>
+            </div>
+            <div id="control_div_ignore_dir">
+                <div class="control_dir_header">
+                    <span>Игнорируемые каталоги</span>
+                    <img src="images/folder-add.png"/>
+                </div>
+                <table class="control_table_dir">
+                  <tr><th>Тип</th><th>Путь</th><th></th></tr>
+                  <tbody id="control_tb_ignore"/>
+                </table>
+            </div>
+        </div>
+        <div class="group_div">
+            <label>
+                <input id="ic_audit" type="checkbox" name="set" value="1" >Использовать аудит при КЦ
+            </label>
+        </div>
+        <div style="float: right;">
+            <button id="control_btn_accept">Применить</button>
+            <button id="control_btn_cancel">Отмена</button>
+        </div>
+    </div>
+</body>
+</html>

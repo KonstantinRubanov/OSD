@@ -1,0 +1,31 @@
+Template: osdiagnosticsystem/template-login
+Type: string
+Description: Логин администратора АРМ
+ Укажите логин пользователя - администратора АРМ
+
+Template: osdiagnosticsystem/template-rk
+Type: string
+Default: localhost
+Description: Адрес контроллера домена
+ Укажите адрес используемого контроллера домена для резервоного копирования
+
+Template: osdiagnosticsystem/template-pass
+Type: password
+Description: Пароль администратора АРМ
+ Dialog-pass  Укажите пароль пользователя - администратора АРМ
+
+Template: osdiagnosticsystem/template-fire-login
+Type: note
+Description: Предупреждение
+ Поле логина пользователя - администратора АРМ является обязательным для заполнения
+
+Template: osdiagnosticsystem/template-fire-pass
+Type: note
+Description: Предупреждение
+ Поле пароля пользователя - администратора АРМ является обязательным для заполнения
+
+Template: osdiagnosticsystem/like_usdev
+Type: boolean
+Description: Вы хотите установить ограничение на использование блочных устройств usb (Usb Flash Drive)?
+ Выполнение данной операции запретит использование всех неавторизованных съемных дисков.
+ 

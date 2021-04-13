@@ -1,0 +1,49 @@
+<html>
+<head>
+<meta charset="utf-8">
+<link href="../css/devices.css" rel="stylesheet" type="text/css">
+</head>
+<body onload="">
+<div class="main_audit_div_folder" >
+ <span id="glowtext" onclick="CheckLoader(this);hostlistAld();"><img class="system_image" id="back_go" src="images/back.png">Вернуться к списку устройств</span>
+ <p id="header_block">
+ </p>
+  <div id="audit_block" class="dir_form_select">
+    <table id="pathtable_line">
+     <tr><th>Ресурс</th><th><span>Очистить данные</span></th><th><span>Экспорт данных</span></th><th><span>Удалить ресурс</span></th><th><img id="#remove_from" name="setttings_save_allexport" src="images/export.png"  title="Экспортировать все ресурсы"class="rule_remove_audit"/></th><th><img id="#remove_from" name="setttings_save_allempty" src="images/trash_files.png"  title="Очистить все ресурсы" class="rule_remove_audit"/></span></th><th><img id="#remove_from" name="setttings_save_delete" src="images/settings.png" title="Настройки экспорта" class="rule_remove_audit"/></th></tr>
+    <tr class="tmp_row_next">
+    <td class="tmp_cols_1" id=""></td>
+    <td class="tmp_cols_2" id=""><img title="Очистить данные" id="#clear_from"  name="mod_save_clear"  src="images/trash_files.png"  class="rule_remove_audit"/></td>
+    <td class="tmp_cols_3" id=""><img title="Экспорт данных" id="#save_from"   name="mod_save_upload" src="images/export.png"  class="rule_remove_audit"/></td>
+    <td class="tmp_cols_4" id=""><img title="Удалить ресурс" id="#remove_from" name="mod_save_delete" src="images/delete_icon.png"  class="rule_remove_audit"/></td>
+    <td class="tmp_cols_5" id=""><!--<input type="checkbox" disabled="true" checked>--></td>
+    <td class="tmp_cols_6" id=""><!--<input type="checkbox" disabled="true" checked>--></td>
+    <td class="tmp_cols_7" id=""></td>
+    </table>
+<div class="file_dialog" id="table_save_audit_folder">      
+</div>	
+<div class="backup_dialog" id="table_backup_dialog" title="Резервные копии ресурса" style="display: none;">
+</div>	
+
+<div id="_server_save" class="group_div_save_auth" title="Настройки экспорта защищаемых ресурсов" style="display: none;">
+  <h4><p>Выбор сервера</p><h4>
+      <div id="_div_auth_test">
+        <div>
+          <span class="first_line">Сервер FTP</span>  
+          <input type="text" class="second_line" id="_server" placeholder="Сервер FTP">
+        </div>
+        <div>
+          <span  class="first_line">Логин</span>  
+          <input type="text" class="second_line" id="_login" placeholder="Логин входа на FTP">
+        </div>
+        <div>
+          <span  class="first_line">Пароль</span>  
+          <input type="password" class="second_line" id="_password" placeholder="Пароль входа на FTP">
+        </div>        
+      </div>      
+      <div id="button_align"><button name="save_pro_settings"  class="dev_defbutton">Сохранить
+      </button></div>
+</div>      
+</div>
+</body>
+</html>

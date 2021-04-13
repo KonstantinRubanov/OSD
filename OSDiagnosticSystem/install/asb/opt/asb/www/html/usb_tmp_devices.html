@@ -1,0 +1,35 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Управление параметрами CD-ROM</title>
+</head>
+<body onload="">
+<div class="group_list_all_div" id="audit_block">
+<div class="header1"></div>
+<div class="header2"></div>
+<div id="headerDev">
+<span>Тип конфигурируемого устройства:
+<select id="devbus_rule_who_id_">
+<option value="busCD">CD</option>
+<option value="rulesUSB">USB-правила</option>
+</select></span>
+</div>
+<h5>Управление параметрами USB-устройств</h5>
+<span>*Драйвер usb_storage отвечает за использование съемных USB-носителей (диски/флешки).<span>
+<span>Usb_storage  должен быть отключен для полного запрета использования данных устройств.<span>
+<div class="header_state_storage"></div>
+<br>
+<table class="tb_group_dev_list_tmpl" id="pathtable_line">
+<tr>
+<th>Включенные драйверы USB-устройств</th>
+<th></th>
+</tr>
+<tr class="device_row_next">
+<td class="device_tmp_cols_1" id="">usb_storage</td>
+<td class="device_tmp_cols_4" id=""><label class="switch"><input type="checkbox" name="mod_switch" id="usb_storage"><span class="slider round"></span></label></td>
+</tr>
+</table>
+
+</div>
+</body>
+</html>

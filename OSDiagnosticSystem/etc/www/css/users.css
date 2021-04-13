@@ -1,0 +1,605 @@
+
+
+/* кнопки со стрелками, управляющие доступом*/
+.button_arrow {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    width: 100px;
+    color: #0071f0;
+    background-color: white;
+    border: 2px solid #0071f0;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 1;
+    height: 20 px;
+}
+
+
+.button_arrow:focus,
+.button_arrow:hover {
+    background-color: rgba(0,113,240,0.7);
+    cursor: pointer;
+}
+
+.button_arrow:disabled,
+.button_arrow[disabled]{
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: #BBB;
+  background-color: #EEE;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#button_add {
+/*    background: url(../images/direction-arrow-pointing-right.png) no-repeat center center;*/
+    background-image: url(../images/direction-arrow-pointing-right.png);
+    background-position: center;
+    background-repeat : no-repeat;
+}
+
+#button_remove {
+/*    background: url(../images/left-pointing-arrow.png) no-repeat center center;*/
+    background-image: url(../images/left-pointing-arrow.png);
+    background-position: center;
+    background-repeat : no-repeat;
+}
+/*затемнение всего окна при модальном диалоге*/
+.ui-widget-overlay
+{
+  opacity: 0.50;
+  background-color: #4e4e4e;
+}
+
+.ui-dialog {
+  padding: 0px !important;
+  border-radius: 10px;
+}
+/*Кнопки Закрыть и Печать (пока на основе defbutton)*/
+/* Кнопка */
+.sub_button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    width: auto;
+    color: white;
+    background-color: #0071f0;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 1;
+    height: 20 px;
+    /*компоновщик для .loader*/
+    display: grid;
+    grid-template-columns: 1fr 5px;
+    grid-gap: 5px;
+    outline: 0 !important;
+}
+
+
+.sub_button:focus,
+.sub_button:hover {
+    background-color: rgba(0,113,240,0.7);
+    cursor: pointer;
+}
+
+.sub_button:disabled,
+.sub_button[disabled]{
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: #BBB;
+  background-color: #EEE;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sub_button::-moz-focus-inner {
+    border: 0;
+}
+/**/
+
+#EditUserInfo {
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    background: #fff;
+    width: 250px;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-gap: 16px;
+    font-weight: normal;
+    font-size: 12px;
+    color: #4e4e4e;
+    /* padding: 10px 12px; */
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px #ccc;
+    padding: 15px;
+    display: none;
+}
+
+#div_right_content{
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+#tableAllUsers{
+  display: grid;
+  grid-template-rows: 40px 1fr;
+  grid-gap: 16px;
+  width: calc(100% - 250px);
+  height: 100%;
+}
+
+#tableUL{
+    display:none;
+}
+
+#buttonAllUsers{
+    display: grid;
+    grid-template-columns: auto auto auto auto 1fr;
+    grid-gap: 16px;
+}
+
+#userButtons{
+   display: grid;
+    grid-template-rows: auto auto auto auto;
+    grid-gap: 16px; 
+}
+
+#main_wrap{
+  display: grid;
+  grid-template-columns: 1fr 250px;
+  grid-gap: 16px;
+}
+
+/* диалог управления доступом к приложениям*/
+/*содержимое диалога ACL*/
+#div_dialog_acl_user_application {
+    display: none;
+    flex-direction: column;
+    flex: inherit;
+    background: white;
+    overflow:hidden;
+}
+
+.checkbox{
+    float: left;
+}
+
+#div_controls {
+  display: flex;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding:5px;
+  flex-direction: row;
+}
+
+#div_control_buttons {
+    display: grid;
+    padding: 5px;
+    grid-template-rows: 1fr auto auto 1fr;
+    grid-gap: 16px;
+}
+
+/*Таблицы*/
+.table_wrapper {
+    position: relative;
+}
+
+.table_scroll {
+    height: 450px;
+    width:230px;
+    overflow-y: scroll;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.table_scroll_gp {
+    height: 280px;
+    width:100%;
+    overflow-y: scroll;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.table_wrapper table {
+    width: 100%;
+}
+
+.table_wrapper table thead th .text {
+    position: absolute;
+    top: -20px;
+    z-index: 2;
+    height: 20px;
+}
+
+.confirm_buttons {
+    display: grid;
+    padding-top: 10px;
+    grid-template-columns: 1fr auto auto;
+    grid-gap: 16px;
+    position: relative;
+/*    background-color: #EEE;*/
+    background-color: white;
+    width: 100%;
+    height: 100%;
+}
+
+.message {
+    font-size: 13px;
+    text-align: left;
+    padding-top: 10px;
+    left: 10px;
+    position: relative;
+    color:  #AAA;
+/*
+    opacity: 0;
+    animation: fadein 3s linear forwards;
+*/
+}
+
+@keyframes fadein {
+    0% { opacity: 0; }
+    10% { opacity: 0; }
+    90% { opacity: 1; transform: translateY(0px);}
+    99% { opacity: 1; transform: translateY(-30px;)}
+    100% { opacity: 1; }
+}
+
+#button_close_acl_dialog{
+    margin-right: 10px;
+    position: relative;
+/*
+background: none;
+    color: #a0a0a0;
+    font-weight: 600;
+*/
+}
+
+/*
+#div_confirm_buttons_acl_dialog{
+   padding-top: 10px; 
+}
+*/
+
+#div_print_passwords{
+    background-color: white;
+}
+
+#div_layout{
+    display: flex;
+    flex-direction: column;
+    flex: inherit;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding-right: 0;
+}
+
+/* Диалог печати паролей */
+#div_dialog_print_passwords{
+    display: none;
+    grid-template-rows: 1fr auto;
+    grid-gap: 10px;
+    margin: auto;
+    overflow: hidden;
+    padding: 10px;
+}
+
+#label_print_passwords{
+   height: 200px;
+   width:390px;
+   overflow-y: scroll; 
+}
+
+/*
+#button_acl_user_application {
+    font-size: 13px;
+}
+*/
+/* Диалог управления генерацией паролей */
+#div_dialog_generate_password{
+    display: none;
+    position: relative;
+    overflow: hidden;
+    height: 500px;
+}
+
+#div_generate_password_layout {
+    display: grid;
+    grid-template-rows: 15px auto auto;
+    grid-gap: 5px;
+    height: 500px;
+/*
+    flex-direction: column;
+    flex: inherit;
+*/
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    padding: 5px;
+}
+
+.div_generate_passwords_content{
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-gap: 5px;
+    height: 400px;
+    width: 480px;
+/*
+    flex-direction: column;
+    flex: inherit;
+*/
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+    padding: 5px;
+/*    background-color: red;*/
+}
+
+.confirm_buttons_gen_pas {
+    display: grid;
+    padding-top: 0px;
+    grid-template-columns: 1fr auto auto;
+    grid-gap: 5px;
+    position: relative;
+/*    background-color: #EEE;*/
+    background-color: white;
+    width: 100%;
+    height: 60px;
+}
+
+.div_dashboards{
+    display: none;
+}
+
+#div_set_flag {
+    display: flex;
+}
+
+/*синий круг с нумерацией*/
+.numbering_label {
+   border: none;
+   border-radius: 13px;
+   height: 20px;
+   width: 25px;
+   padding-top: 4px;
+   color: white;
+   background-color: #0071f0;
+   text-align: center;
+   font-size: 14px;
+}
+
+#div_set_flag{
+    display:grid;
+    grid-template-rows: auto 40px 1fr 40px;
+    grid-gap: 5px;
+/*
+    position: relative;
+    height: 100%;
+    background-color: pink;
+*/
+}
+
+.div_set_flag_string{
+    display:grid;
+    grid-template-columns: auto auto 1fr auto;
+    grid-gap: 5px;
+}
+
+#div_filler_set_flag{
+    height: 290px;
+}
+
+.div_navigation{
+    display:grid;
+    grid-template-columns: auto 1fr auto;
+    grid-gap: 5px;
+    position: relative;
+}
+
+.div_numeric_title{
+    display:grid;
+    grid-template-columns: auto auto 1fr;
+    grid-gap: 5px;
+}
+
+#div_set_users{
+    display:none;
+    grid-template-rows: auto 1fr 40px;
+    grid-gap: 5px;
+}
+
+#div_set_password_properties {
+    display:none;
+    grid-template-rows: auto auto auto auto  auto 40px;
+    grid-gap: 25px;
+}
+
+#div_filler_set_password_properties{
+    height: 50px;
+}
+
+/*кол-во паролей и кол-во символов*/
+.div_password_properties {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-gap: 5px;
+    left: 30px;
+    position: relative;
+}
+
+#div_passwords_alphabet{
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-gap: 5px;
+}
+
+/*last page - generated passwords*/
+#div_generate_result{
+    display:none;
+    grid-template-rows: auto 1fr auto;
+    grid-gap: 5px;
+}
+/*РАспечатать и Экспорт в файл паролей*/
+#div_pass_table_controls{
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-gap: 5px;
+    position: relative;
+}
+
+#print_password_list #export_password_list{
+    width:auto;
+}
+
+/* Кнопки навигации (назад/далее)*/
+.navigation_button {
+/*    padding: 10px 20px;*/
+   border: none;
+   height: 40px;
+   width: auto;
+   color: #0071f0;
+   background-color: white;
+   cursor: pointer;
+   transition: 0.3s;
+   z-index: 1;
+   font-size: 10px;
+}
+
+.navigation_button:focus,
+.navigation_button:hover {
+   color: rgba(0,113,240,0.6);
+   cursor: pointer;
+}
+
+.navigation_button:disabled,
+.navigation_button[disabled]{
+/*  padding: 10px 20px;*/
+   border: none;
+   color: #BBB;
+   outline: none;
+   cursor: pointer;
+   transition: 0.3s;
+}
+
+/*подзаголовки в диалоге генерации паролей*/
+.label_sub_title{
+    font-size: 13px;
+}
+
+.label_prop_title{
+    font-size: 15px;
+    color: #0071f0;
+}
+/*чекбоксы в диалоге генерации паролей*/
+body {
+  font-family: Avenir;
+  font-size: 16px;
+}
+
+.checkbox:checked{
+  background-color: rgba(0,113,240,0.6);
+}
+
+.label-cbx {
+  user-select: none;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+.label-cbx input:checked + .checkbox {
+  border-color: rgba(0,113,240,0.6);
+}
+.label-cbx input:checked + .checkbox svg path {
+  fill: rgba(0,113,240,0.6);
+}
+.label-cbx input:checked + .checkbox svg polyline {
+  stroke-dashoffset: 0;
+}
+.label-cbx:hover .checkbox svg path {
+  stroke-dashoffset: 0;
+}
+.label-cbx .checkbox {
+  position: relative;
+  top: 2px;
+  left:30px;
+  float: left;
+  margin-right: 8px;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #C8CCD4;
+  border-radius: 3px;
+}
+.label-cbx .checkbox svg {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+}
+.label-cbx .checkbox svg path {
+  fill: none;
+  stroke: rgba(0,113,240,0.6);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 71px;
+  stroke-dashoffset: 71px;
+  transition: all 0.6s ease;
+}
+.label-cbx .checkbox svg polyline {
+  fill: none;
+  stroke: #FFF;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 18px;
+  stroke-dashoffset: 18px;
+  transition: all 0.3s ease;
+}
+.label-cbx > span {
+  pointer-events: none;
+  vertical-align: middle;
+}
+
+.cntr {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 5px;
+  position: relative;
+  top: 45%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.invisible {
+  position: absolute;
+  z-index: -1;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+/*обводка полей ввода в случае ошибочного ввода*/
+.input[type=number]{
+   width:200px;
+}
+
+/*
+.input_box {
+  border: 2px solid #b51212;
+  border-radius: 3px;
+  display: none;
+  width: 198px;
+}
+*/

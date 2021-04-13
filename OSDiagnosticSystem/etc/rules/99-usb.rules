@@ -1,0 +1,16 @@
+# Skeep not USB
+SUBSYSTEM!="usb", GOTO="usb_end"
+# Skeep remove actions
+ACTION!="add", GOTO="usb_end"
+# Linux Foundation
+# 2.0 root hub
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{product}=="EHCI Host Controller", ATTR{bDeviceClass}=="09", GOTO="usb_end"
+# 1.1 root hub
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{product}=="UHCI Host Controller", ATTR{bDeviceClass}=="09", GOTO="usb_end"
+# Hub
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{product}=="USB Hub", ATTR{bDeviceClass}=="09"  GOTO="usb_end"
+SUBSYSTEMS=="usb", ACTION=="add", ATTR{product}=="USB Optical Mouse|USB Keyboard", GOTO="usb_end"
+# Rules
+# Disable all other USB devices
+ACTION=="add", SUBSYSTEMS=="usb", RUN+="/bin/sh /opt/OSDiagnosticSystem/scripts/usb_unautorized.sh"
+LABEL="usb_end"

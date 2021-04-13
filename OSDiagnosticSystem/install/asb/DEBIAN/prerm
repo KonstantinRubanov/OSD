@@ -1,0 +1,24 @@
+#!/bin/bash -e
+  
+ # ods_pid=$(pidof asb)
+ 
+ #if [ "$ods_pid" != "" ]; then
+ # kill  $ods_pid
+ #fi
+ 
+ #ds_pid=$(pidof asb  2>/dev/null); if [ "$ods_pid" != "" ]; then sudo killall asb; fi;
+ 
+ sudo rm /var/cache/debconf/*.dat 
+ 
+ #ods_pid=$(pidof asb);echo $ods_pid;  if [ "$ods_pid" != "" ]; then sudo killall asb; fi;
+
+ 
+if [[ "$(sudo systemctl status asb.service  2>&1)" == "Unit asb.service could not be found." ]]; then  echo "asb.service not found";   else echo "asb.service found... stop..."; sudo systemctl stop asb;  fi;
+ 
+if [[ "$(sudo systemctl status asb.service  2>&1 | grep "enabled;")" == "" ]]; then  echo "asb.service not  enabled"; else echo "asb.service disabled..."; sudo systemctl disable asb;  fi;
+
+if [[ -e /etc/systemd/system/asb.service ]]; then sudo rm /etc/systemd/system/asb.service; fi;
+
+if [[ -e /opt/asb/db/osds.sqlite ]]; then sudo chmod 0777  /opt/asb/db/osds.sqlite; sudo rm /opt/asb/db/osds.sqlite; fi;
+
+if [[ -e /etc/udev/rules.d/99-usb.rules ]]; then sudo rm /etc/udev/rules.d/99-usb.rules; fi;

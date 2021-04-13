@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>curl/libcurl3_7.52.1-5+deb9u6_amd64.deb</file>
+        <file>curl/curl_7.52.1-5+deb9u6_amd64.deb</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+. /usr/share/debconf/confmodule 
+
+#sudo rm /var/cache/debconf/*.dat;
+
+db_beginblock
+db_input critical osdiagnosticsystem/template-hosts || true
+db_endblock
+db_go
+
+# Check their answer.
+db_get osdiagnosticsystem/template-hosts
+sudo sed -i 's/#arm_rk/'"$RET"'/g' /opt/asb/asb.ini >/dev/null 2>/dev/null

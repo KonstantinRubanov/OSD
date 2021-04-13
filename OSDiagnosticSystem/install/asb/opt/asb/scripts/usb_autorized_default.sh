@@ -1,0 +1,1 @@
+for host in /sys/bus/usb/devices/usb*; do  if [ -e "$host/authorized_default" ]; then  echo 1 | sudo tee $host/authorized_default; fi; done; for x in $( sudo find /sys/bus/usb/devices -name  "*" | sudo grep "[1-99]-[1-99]"); do  dev=$x/authorized; if [ -e "$dev" ]; then  echo 1 | sudo tee $dev;  fi;  done;

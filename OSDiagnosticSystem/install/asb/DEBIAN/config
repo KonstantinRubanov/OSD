@@ -1,0 +1,55 @@
+#!/bin/sh -e
+
+# Source debconf library.
+. /usr/share/debconf/confmodule
+
+while [ 1 = 1 ]
+do
+  db_beginblock
+  db_input critical osdiagnosticsystem/template-login || true
+  db_go
+  db_endblock
+  
+  db_get osdiagnosticsystem/template-login
+  if [ "" == "$RET" ]; then db_input critical osdiagnosticsystem/template-fire-login || true; continue; else  break; fi;
+done;
+
+
+# Check their answer.
+#db_get osdiagnosticsystem/template-login
+sudo sed -i 's/#arm_login/'"$RET"'/g' /opt/asb/asb.ini >/dev/null 2>/dev/null
+
+
+while [ 1 = 1 ]
+do
+  db_beginblock
+  db_input critical osdiagnosticsystem/template-pass || true
+  db_go
+  db_endblock
+  
+  db_get osdiagnosticsystem/template-pass
+  if [ "" == "$RET" ]; then db_input critical osdiagnosticsystem/template-fire-pass || true; continue; else  break; fi;
+done;
+
+# Check their answer.
+sudo sed -i 's/#arm_pass/'"$RET"'/g' /opt/asb/asb.ini >/dev/null 2>/dev/null
+
+db_beginblock
+db_input critical osdiagnosticsystem/template-rk || true
+db_endblock
+db_go
+
+# Check their answer.
+db_get osdiagnosticsystem/template-rk
+sudo sed -i 's/#arm_rk/'"$RET"'/g' /opt/asb/asb.ini >/dev/null 2>/dev/null
+
+#db_beginblock
+#db_input critical osdiagnosticsystem/like_usdev || true
+#db_endblock
+#db_go
+
+# Check their answer.
+#db_get osdiagnosticsystem/like_usdev
+#if [ "$RET" == "true" ]; then cp /opt/asb/rules/99-usb.rules /etc/udev/rules.d/ >/dev/null 2>/dev/null; chmod 755 /etc/udev/rules.d/99-#usb.rules >/dev/null 2>/dev/null; sudo udevadm control --reload-rules; fi
+
+

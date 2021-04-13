@@ -1,0 +1,9 @@
+Package: asb
+Version: 1.0-2
+Section: misc
+Architecture: amd64
+Depends: libssh-gcrypt-4 (>=0.7.3-2), curl (>=7.52.1-5+deb9u6), libcurl3 (>=7.52.1-5+deb9u6), libsqlite3-0(>=3.24.0)
+Installed-Size: 16500
+Maintainer: Rubanov Konstantin <rubanov.kv@niips.ru>
+Description: ARM Astra Linux system
+ ARM secure aplication for Astra Linux system.

@@ -1,0 +1,42 @@
+#journals_btn_create {
+  margin: 0;
+}
+
+#log_start_date, #log_stop_date {
+    height: 24px;
+    float: right;
+}
+
+#journals_main_table {
+  display: none;
+}
+
+.j_block {
+    height: 32px;
+    margin-bottom: 6px;
+}
+
+#journal_text {
+  width: 100%;
+  display: none;
+}
+
+#div_create_arch {
+  padding: 6px;
+  background: #afeeee;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+#p_create_arch {
+  display: inline-block;
+  color: #000080;
+  margin-bottom: 6px;
+}
+
+#img_journal_create_load 
+{
+  position: relative;
+  left: -12px;
+  top: -6px;
+}

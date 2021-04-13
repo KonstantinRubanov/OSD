@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>journals</title>
+<link href="../css/backup.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/backup.js"></script>
+</head>
+<body>
+  <div>
+    <div class="title_div">
+      <div class="div_loader">
+        <img id="img_backup_loader" src="images/loader.gif" width="32px" height="32px" style="padding: 5px;"/>
+        <img id="img_backup_loader_start" class="btn_updates" src="images/update.png" width="32px" height="32px" onclick="backupAldList()"/>
+      </div>
+      <p align="center" class="main_group_name">Управление резервными копиями</p>
+    </div>
+    <div class="main_right_panel" style="float: right;">
+      <div id="backup_ald_drive" style="margin-bottom: 6px;">
+        <span id="p_backup_ald">Резервная копия ALD</span>
+        <div>
+          <button id="btn_create_backup" class="defbutton" onclick="backupAldStart()" >Создать<img class="img_backup_load" id="img_backup_ald_load" src="images/loader.gif" width="32px" height="32px"/>
+          </button>
+        </div>
+      </div>
+      <div id="backup_host_drive">
+        <span id="p_backup_host">Резервная копия хоста</span>
+        <select id="cbox_host_backup"></select>
+        <img id="img_backup_settings" src="images/settings.png" onclick="showBackupSettings()"/>
+        <div id="div_host_backups"></div>
+        <div>
+          <button id="btn_create_host_backup" class="defbutton" onclick="backupHostStart()" disabled>Создать
+            <img class="img_backup_load" id="img_backup_host_load" src="images/loader.gif" width="32px" height="32px""/>
+          </button>
+        </div>
+      </div>
+    </div>
+    <table border="0" cellpadding="5" cellspacing="0" class="main_table" id="backup_main_table">
+      <thead class="main_tbl_head">
+        <tr>
+          <th align="left">№</th>
+          <th align="left">Дата резервной копии</th>
+          <th align="left">Время резервной копии</th>
+          <th align="left">Размер</th>
+          <th align="center">Восстановление</th>
+          <th align="center">Удаление</th>
+        </tr>
+      </thead>
+      <tbody class="main_tbl_body" id="tbl_backups">
+      </tbody>
+    </table>
+  </div>
+
+  <div id="backup_host_settings" class="dialog_window" title="Настройка РК хоста">
+    <div id="bhs_server" class="group_div">
+      <p class="group_name"><b>Выбор сервера</b></p>
+      <div style="margin-bottom: 4px;">
+          <select id="bhs_server_type" class="bhs_first_column">
+              <option value="0">local://</option>
+              <option value="1">ftp://</option>
+              <!-- <option value="2">ssh://</option> -->
+            </select>
+            <input type="text" class="bhs_second_column" id="bhs_server_path" placeholder="Путь к хранилищу">
+      </div>
+      <div id="bhs_div_auth">
+        <div style="margin-bottom: 4px;">
+          <span class="bhs_first_column" style="display: inline-block; font-size: 16px; font-weight: bold;">Логин</span>  
+          <input type="text" class="bhs_second_column" id="bhs_login" placeholder="Логин входа на FTP">
+        </div>
+        <div>
+          <span class="bhs_first_column" style="display: inline-block; font-size: 16px; font-weight: bold;">Пароль</span>  
+          <input type="password" class="bhs_second_column" style="margin-bottom: 10px;" id="bhs_password" placeholder="Пароль входа на FTP">
+        </div>
+      </div>
+      
+    </div>
+    <div id="bhs_dirs" class="group_div">
+        <p class="group_name">
+          <b>Назначение каталогов РК</b>
+          <img id="bhs_btn_add_folder" src="images/folder-add.png"/>
+        </p>
+        <div style="height: 200px;">
+          <table class="bhs_table_dir">
+            <thead>
+              <tr><th>Тип</th><th>Путь</th><th></th></tr>
+            </thead>
+            <tbody id="bhs_tb_dirs" />
+          </table>
+        </div>
+    </div>
+    <div>
+        <button id="bhs_accept" style="float: right; margin: 4px;">Применить</button>
+        <button id="bhs_cancel" style="float: right; margin: 4px;">Отмена</button>
+    </div>
+  </div>
+</body>
+</html>

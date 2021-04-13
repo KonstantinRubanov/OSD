@@ -1,0 +1,11 @@
+[Unit]
+Description=OSDiagnosticSystem
+
+[Service]
+ExecStart=/bin/bash -c /opt/OSDiagnosticSystem/scripts/start.sh
+ExecStop=/usr/bin/killall OSDiagnosticSystem
+TimeoutSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta charset="utf-8">
+<script type="text/javascript">
+  $(function() {
+    $('#table_save_mandat','.ui-dialog').remove();    
+	$('button[name=b_mdt_in]').click(function(e) {
+       //showInfoDevLock('table_save_audit', 1);  
+       $('#table_save_mandat').dialog({ 
+                           width: 500});         
+    });        
+    
+    $('#flag_ehole').click(function() {  
+       if ($('#flag_whole').is(':checked')){  
+         alert("Флаг ehole несовместим с установленным флагом whole. Операция будет отменена!");
+         $('#flag_ehole').prop('checked', false);
+      }
+   });
+   
+   $('#flag_whole').click(function() {  
+       if ($('#flag_ehole').is(':checked')){  
+         alert("Флаг whole несовместим с установленным флагом ehole. Операция будет отменена!");
+         $('#flag_whole').prop('checked', false);
+      }
+   });
+   
+  });
+</script> 
+<title>Мандатные атрибуты</title>
+</head>
+<body onload="">
+<div class="mandat_table_div">
+
+<table id="pathtable_line"><tr><th colspan="4"></th></tr>
+    <tr><td colspan="4">Мандатные атрибуты файла</td></tr>
+    <tr>
+		<td>Уровень конфиденциальности</td>
+		<td>Целостность</td>
+		<td>Категории</td>
+		<td>Атрибуты</td></tr>
+		<tr>
+		<td  class="device_tmp_cols_1" id=""></td>
+		<td  class="device_tmp_cols_2" id=""></td>
+		<td  class="device_tmp_cols_3" id=""></td>
+		<td  class="device_tmp_cols_4" id=""></td></tr>
+        </table><div class="mandat_labels_table_div"></div>
+        <button class="dev_defbutton" name="b_mdt_in">Редактировать
+        </button>
+
+        
+<div id="table_save_mandat" title="Редактирование мандатных ПРД" class="div_menu">
+    <table class="leftcoltable">
+    <tr><td>Уровень конфиденциальности</td>
+    <td class="out_list0" id=""><select id="MandatObjectLevals"></select></td></tr>
+    <tr><td>Целостность</td>
+    <td class="out_list2" id=""><select id="MandatObjectMonolite"></select></td></tr>
+    <tr><td>Разряд/Категория</td>
+    <td class="out_list1" id=""></td></tr>
+    <tr><td>Атрибуты</td><td>
+    <input type="checkbox" id="flag_ccnr"  value="ccnr">  <label id="l_ccnr">ccnr</label><br>
+    <input type="checkbox" id="flag_ccnri" value="ccnri"> <label id="l_ccnri">ccnri</label><br>
+    <input type="checkbox" id="flag_ehole" value="ehole"> <label id="l_ehole">ehole</label><br>
+    <input type="checkbox" id="flag_whole" value="whole"> <label id="l_whole">whole</label><br>
+    </td></tr></table><button class="dev_defbutton"  name="b_mandat_in">Сохранить</button>
+    </div>
+
+</div>
+
+</body>
+</html>

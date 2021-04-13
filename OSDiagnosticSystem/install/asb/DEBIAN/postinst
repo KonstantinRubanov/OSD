@@ -1,0 +1,47 @@
+#!/bin/bash -e
+
+# Подключение команд debconf
+. /usr/share/debconf/confmodule
+ 
+# echo -n "Insert ARM admin login user: "
+# read login
+
+# echo -n "Insert password by user: "
+# read -s password
+ 
+# sed -i 's/#arm_login/'"$login"'/g' /opt/asb/asb.ini
+# sed -i 's/#arm_pass/'"$password"'/g' /opt/asb/asb.ini
+
+ if [[ ! -e /opt/asb ]]; then sudo mkdir -p /opt/asb; sudo chmod -R 0777 /opt/asb; else sudo chmod -R 0777 /opt/asb; sudo chmod 0600 /opt/asb/asb.ini;  fi;
+ 
+ if [[ ! -e /tmp ]]; then sudo mkdir -p /tmp; fi;
+ 
+ if [[ ! -e /backup ]]; then sudo mkdir -p /backup; sudo chmod 0777 /backup; else sudo chmod -R 0777 /backup;  fi;
+ 
+ if [[ -e /opt/asb/db/osds.sqlite ]]; then sudo chmod 0777  /opt/asb/db/osds.sqlite; sudo rm /opt/asb/db/osds.sqlite; fi;
+ 
+ if [[ ! -e /usr/lib/systemd/system ]]; then sudo mkdir -p /usr/lib/systemd/system; sudo chmod 664 /usr/lib/systemd/system; fi;
+  
+# cp /opt/asb/rules/99-usb.rules /etc/udev/rules.d/
+ 
+# chmod 755  /etc/udev/rules.d/99-usb.rules
+
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/asb/
+ 
+#ods_pid=$(pidof asb);echo $ods_pid;  if [ "$ods_pid" != "" ]; then sudo killall asb; fi;
+  
+#if [[ "$(sudo cat ~/.bashrc | sudo grep "LD_LIBRARY_PATH")" == "" ]]; then echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/asb/' >> ~/.bashrc;  fi;
+ 
+#if [[ ! -e /etc/systemd/system/asb.service ]]; then sudo cp /opt/asb/scripts/asb.service /etc/systemd/system/;  sudo chmod 664 /etc/systemd/system/asb.service; fi;
+
+if [[ "$(sudo cat ~/.bashrc | sudo grep "asb")" != "" ]]; then  sudo sed -i 's/asb/asb/g' ~/.bashrc; fi;
+ 
+if [[ ! -e /usr/lib/systemd/system/asb.service ]]; then sudo cp /opt/asb/scripts/asb.service /usr/lib/systemd/system/;  sudo chmod 664 /usr/lib/systemd/system/asb.service; fi;
+  
+sudo systemctl daemon-reload
+ 
+if [[ "$(sudo systemctl status asb.service  2>&1)" == "Unit asb.service could not be found." ]]; then echo "asb.service not found";   else echo "asb.service found... start..."; sudo systemctl start asb;  fi;
+ 
+if [[ "$(sudo systemctl status asb.service  2>&1 | grep disabled)" == "" ]]; then  echo "asb.service not  disabled"; else echo "asb.service not  disabled"; sudo systemctl enable asb;  fi;
+
+#exec /opt/asb/asb -e

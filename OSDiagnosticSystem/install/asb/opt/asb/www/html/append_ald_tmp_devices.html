@@ -1,0 +1,165 @@
+﻿<html>
+<head>
+<meta charset="utf-8">
+<script type="text/javascript">
+  $(function() {
+    $('#ald_users_usb_device','.ui-dialog').remove();    
+	$('button[name=add_ald_usb_group]').click(function(e) {
+       $('#ald_users_usb_device').dialog({ 
+                           width: 500});     
+       var prop_mode = $('button[name=ald_save_user_usb_group]').attr('id');
+       if(prop_mode !=2 ){ 
+         $(".rule_ald_device_tmp_cols_2").parent().html(function(index, oldText){     
+          $(this).remove();
+          return oldText;
+         }); 
+       
+         $('#_ald_usb_name').val('');
+         $('#_ald_usb_id').val('');
+         $('#ald_audit_rule_who_id_').val();
+         $('#ald_audit_rule_group_id_').val();
+         $('#_ald_usb_info').val('');         
+         var IntRule = 0            
+         for(var k = 0; k < 9; k++){                
+           $(document.getElementById("ald_discrete_bit_" + k)).prop('checked', ((IntRule&(1<<k)))?true:false);  
+         }                                
+         $('#ald_s_owner_user_usb').prop('checked', true);
+         $('#_ald_usb_name').prop('disabled', false);
+      }       
+      else{
+        $('#_ald_usb_name').prop('disabled', true);      
+         $('#_ald_usb_id').val('');;
+      }
+       /*alert(t);*/
+    });    	
+     
+    $('button[name=ald_save_user_usb_group]').click(function() {                  
+        //$('#ald_users_usb_device').dialog('close');      
+    });
+    $('button[name=cancel_user_usb_group]').click(function() {                  
+        $('#ald_users_usb_device').dialog('close');      
+    });
+    $('#ald_users_usb_device').on('dialogclose', function(event) {
+      $('button[name=ald_save_user_usb_group]').attr('id',1);
+      
+      $(".rule_ald_device_row_next").html(function(index, oldText){     
+          $(this).remove();
+          return oldText;
+      }); 
+         
+    }); 
+    
+  });
+</script> 
+</head>
+<body onload="">
+<div id="ald_users_usb_device" title="Параметры устройства в политике ALD" class="div_menu">
+<table id="pathtable_line">
+
+<tr>
+<th>
+</th>
+<th>
+ Атрибуты устройства
+</th>
+</tr>
+
+<tr>
+<td>
+ Название устройства
+</td>
+<td>  
+<input type="text" class="second_line" id="_ald_usb_name" placeholder="Название устройства">
+</td>
+</tr>
+
+
+<tr>
+<td>
+ Список идентификаторов
+</td>
+<td>
+<!--
+<input type="text" class="second_line" id="_ald_usb_id" placeholder="Идентификатор устройства">//-->
+<span id="glowtext" name="prop_rule_add_ald_usb_group"><img class="system_image"  src="images/settings.png"> Редактировать</span>
+<br>*Необходимо добавить как минимум 1 идентификатор устройства
+</td>
+</tr>
+
+<tr>
+<td>
+ Пользователь
+</td>
+<td>
+ <select id="ald_audit_rule_who_id_">
+ </select>
+</td>
+</tr>
+
+<tr>
+<td>
+ Группа
+</td>
+<td>
+ <select id="ald_audit_rule_group_id_">
+ </select>
+</td>
+</tr>
+
+<tr>
+<td>
+ Описание
+</td>
+<td>
+<input type="text" class="second_line" id="_ald_usb_info" placeholder="Описание устройства">
+</td>
+</tr>
+
+<tr>
+<th>
+</th>
+<th>
+ Атрибуты доступа
+</th>
+</tr>
+
+<tr><td>Права пользователя</td><td>
+<div><input type="checkbox" id="ald_discrete_bit_8" value="ald_own_bit_r">
+<img src="images/state_read.png">
+<input type="checkbox" id="ald_discrete_bit_7" value="ald_own_bit_w">
+<img src="images/state_write.png">
+<input type="checkbox" id="ald_discrete_bit_6" value="ald_own_bit_e">
+<img src="images/state_run.png"></div></td>
+</tr>
+<tr><td>Права группы</td>
+<td><div><input type="checkbox" id="ald_discrete_bit_5" value="ald_bit_group_r">
+<img src="images/state_read.png">
+<input type="checkbox" id="ald_discrete_bit_4" value="ald_bit_group_w">
+<img src="images/state_write.png">
+<input type="checkbox" id="ald_discrete_bit_3" value="ald_bit_group_e">
+<img src="images/state_run.png"></div></td>
+</tr>
+<tr><td>Права остальных</td>
+<td><div><input type="checkbox" id="ald_discrete_bit_2" value="ald_other_bit_r">
+<img src="images/state_read.png">
+<input type="checkbox" id="ald_discrete_bit_1" value="ald_other_bit_w">
+<img src="images/state_write.png">
+<input type="checkbox" id="ald_discrete_bit_0" value="ald_other_bit_e">
+<img src="images/state_run.png"></div></td>
+</tr>
+</table>
+
+<br>
+<input type="checkbox" id="ald_s_owner_user_usb" value="s_owner_user_usb" checked >Включено
+<br>
+<br>
+
+<button  id="" class="dev_defbutton"  name="ald_save_user_usb_group">Сохранить</button> <button  class="dev_defbutton"  name="cancel_user_usb_group">Отмена
+</button>
+</div>
+<div class="div_rule_writer_form">
+</div>
+<div class="div_rule_find_form">
+</div>
+</body>
+</html>

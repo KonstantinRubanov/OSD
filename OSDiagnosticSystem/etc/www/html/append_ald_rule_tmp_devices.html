@@ -1,0 +1,47 @@
+﻿<html>
+<head>
+<meta charset="utf-8">
+<script type="text/javascript">
+  $(function() {
+    $('#rule_host_list_all_div','.ui-dialog').remove();    
+	$('span[name=prop_rule_add_ald_usb_group]').click(function(e) {
+       $('#rule_host_list_all_div').dialog({ 
+                           width: 700});     
+       /*alert(t);*/
+    });    	
+    $('button[name=rule_cancel_user_usb_group]').click(function() {                  
+        $('#rule_host_list_all_div').dialog('close');      
+    });     
+    $('button[name=find_rule_add_ald_usb_close]').click(function() {                  
+        $('#rule_host_list_all_div').dialog('close');      
+    });
+    $('#rule_host_list_all_div').on('dialogclose', function(event) {
+    }); 
+    
+  });
+</script> 
+<title>>Реестр идентификаторов устройствам</title>
+</head>
+<body onload="">
+<div id="rule_host_list_all_div" title="Реестр идентификаторов устройства" class="div_menu">
+<table class="rule_tb_ald_list_tmpl">
+<tr>
+<!--<th>№</th>//-->
+<th>Идентификатор</th>
+<th>Правило</th>
+<th></th>
+</tr>
+<tr class="rule_ald_device_row_next">
+<!--
+<td class="rule_ald_device_tmp_cols_1" id=""></td>//-->
+<td class="rule_ald_device_tmp_cols_2" id=""></td>
+<td class="rule_ald_device_tmp_cols_3" id=""></td>
+<td class="rule_ald_device_tmp_cols_4" id=""></td>
+</tr>
+</table>
+<br>
+<input type="text" class="second_line" id="_ald_usb_id" placeholder="Идентификатор устройства">
+<button  id="" class="dev_defbutton"  name="rule_ald_save_user_usb_group">Добавить</button> <button class="dev_defbutton" name="find_rule_add_ald_usb_group"><img class="system_image"  src="images/usb.png">Поиск</button>  <button class="dev_defbutton" name="find_rule_add_ald_usb_close">Закрыть</button> 
+</div>
+</body>
+</html>

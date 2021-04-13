@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Управление параметрами CD-ROM</title>
+</head>
+<body onload="">
+<div class="group_list_all_div" id="audit_block">
+<div class="header1"></div>
+<div class="header2"></div>
+<div id="headerDev">
+<span>Тип конфигурируемого устройства:
+<select id="devbus_rule_who_id_">
+<option value="busCD" selected>CD</option>
+<option value="rulesUSB">USB-правила</option>
+</select></span>
+</div>
+<br>
+<table class="tb_group_dev_list_tmpl" id="pathtable_line">
+<tr>
+<td>Монтирование непривилегированными пользователями (fstab)</td><td><label class="switch"><input type="checkbox" name="mod_switch" id="fstab_storage"><span class="slider round"></span></label></td>
+<tr>
+</table>
+<!--
+<h5>Управление параметрами CD-ROM</h5>
+<table class="tb_group_dev_list_tmpl" id="pathtable_line">
+<tr>
+<th>Пользователи, включенные в группу CD-ROM</th>
+<th></th>
+</tr>
+<tr class="device_row_next">
+<td class="device_tmp_cols_1" id=""></td>
+<td><img class="rule_remove_audit" id="#remove_user_from_group" name="rem_from_group" src="images/delete_icon.png"/></td>
+</tr>
+</table>
+<br>
+<button  class="dev_defbutton"  id="ins_user_cd_group" onclick="showInfoDev('users')">Добавить в группу
+</button>
+<br>
+<br>
+<div id="users">
+ <h3>Список пользователей</h3>
+ <br>
+ <select id="audit_rule_who_id_">
+ </select>
+<br>
+<br>
+<button  class="dev_defbutton"  id="save_user_cd_group">Сохранить
+</button>
+<button  class="dev_defbutton"  id="cancel_user_cd_group" onclick="showInfoDev('users')">Отмена
+</button>
+</div>
+-->
+</div>
+</body>
+</html>

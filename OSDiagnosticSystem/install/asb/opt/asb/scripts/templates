@@ -1,0 +1,5 @@
+Template: osdiagnosticsystem/template-hosts
+Type: select
+Choices: vm-l173.ex.local, vm-l174.ex.local
+Description: Адрес контроллера домена
+ Укажите адрес используемого контроллера домена для резервного копирования

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Document</title>
+    <link href="../css/host_filesystem.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../js/host_filesystem.js" async=""></script>
+</head>
+<body>
+    <div id="hf_window" class="dialog_window" title="Файловая система хоста">
+        <div class="hf_dir_header">
+            <span id="hf_fs_path_name"></span>
+            <img id="hfs_back" src="images/back.png" />
+        </div>
+        <div>
+            <table border="0" width="300dp" height="300dp" cellpadding="5" cellspacing="0" class="tbl_files">
+                <tr valign="top" height="0px"><th>Тип</th><th>Путь</th></tr>
+                <tbody id="hf_tbl_filesystem" />
+            </table>
+        </div>
+        <div id="hf_bottom_panel">
+            <span id="hf_insert_path" style="float: left;"></span>
+            <button style="float: right;">Ок</button>
+        </div>
+    </div>
+</body>
+</html>

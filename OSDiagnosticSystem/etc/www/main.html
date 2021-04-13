@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Мониторинг</title>
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <link rel="stylesheet" type="text/css" href="../libs/jquery-ui.min.css">
+  <link rel="stylesheet" type="text/css" href="../css/jq_components.css">
+
+  <script type="text/javascript" src="../libs/jquery-3.4.0.min.js"></script>
+  <script type="text/javascript" src="../libs/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="../libs/printThis.js"></script>
+  <script type="text/javascript" src="../js/jq_components.js"></script>
+  <script type="text/javascript" async src="../js/main.js"></script>
+  
+</head>
+<body class="body">
+
+
+<div class="tabs"> <!--      Начало вкладок -->
+<h3>ПО АСБ</h3>
+<!--      Устройства -->
+   <div class="tab">
+    <input type="radio" id="tab_devices" name="tab-group" checked>
+    <label for="tab_devices" class="tab-title" style='font: 14px'>Устройства</label>
+    <div class="tab-content" id="section_devices"></div>
+   </div>
+<!--      Пользователи -->
+   <div class="tab">
+    <input type="radio" id="tab_users" name="tab-group">
+    <label for="tab_users" class="tab-title" style='font: 14px'>Пользователи</label>
+    <div class="tab-content" id="section_users"></div>
+   </div>
+<!--      Журналы -->
+   <div class="tab">
+    <input type="radio" id="tab_journals" name="tab-group">
+    <label for="tab_journals" class="tab-title" style='font: 14px'>Журналы</label>
+    <div class="tab-content" id="section_journals"></div>
+   </div>
+<!--      Антивирус -->
+    <div class="tab">
+    <input type="radio" id="tab_antivirus" name="tab-group">
+    <label for="tab_antivirus" class="tab-title" style='font: 14px'>Антивирус</label>
+    <div class="tab-content" id="section_antivirus"></div>
+   </div>
+<!--      КЦ -->
+    <div class="tab">
+    <input type="radio" id="tab_control" name="tab-group">
+    <label for="tab_control" class="tab-title" style='font: 14px'>Контроль<br>целостности</label>
+    <div class="tab-content" id="section_control"></div>
+   </div>
+<!--      Резервное копирование -->
+    <div class="tab">
+    <input type="radio" id="tab_backup" name="tab-group">
+    <label for="tab_backup" class="tab-title" style='font: 14px'>Резервное<br>копирование</label>
+    <div class="tab-content" id="section_backup"></div>
+   </div>
+<!--      Тестирование -->
+    <div class="tab">
+    <input type="radio" id="tab_tests" name="tab-group">
+    <label for="tab_tests" class="tab-title" style='font: 14px'>Тестирование</label>
+    <div class="tab-content" id="section_tests"></div>
+   </div>
+   <!-- Настройка -->
+   <div class="tab" >
+      <input type="radio" id="tab_settings" name="tab-group">
+      <img for="tab_settings" src="images/settings.png" id="img_settings">
+      <div class="tab-content" id="tab_settings"></div>
+   </div>
+   <!-- Журнал администратора -->
+   <!--<div class="tab">
+      <input type="radio" id="tab_admin_journal" name="tab-group">
+      <img for="tab_admin_journal" src="images/admin_journal.png" id="img_admin_journal">
+      <div class="tab-content" id="tab_admin_journal"></div>
+   </div> -->
+
+  </div> <!--      Конец вкладок -->
+  <div id="dialog_fs" />
+</body></html>

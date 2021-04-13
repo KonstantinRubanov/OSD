@@ -1,0 +1,52 @@
+﻿<html>
+<head>
+<meta charset="utf-8">
+<script type="text/javascript">
+  $(function() { 	
+    $('button[name=find_rule_cancel_user_usb_group]').click(function() {                  
+        $('#find_rule_host_list_all_div').dialog('close');      
+    });
+    $('#find_rule_host_list_all_div').on('dialogclose', function(event) {
+    }); 
+    
+  });
+</script> 
+<title>>Реестр устройств</title>
+</head>
+<body onload="">
+<div id="find_rule_host_list_all_div" title="Реестр устройства" class="div_menu">
+<table id="pathtable_line" class="find_rule_tb_ald_list_tmpl">
+
+<tr>
+<th colspan="3">Список хостов в домене</th>
+</tr>
+
+<tr>
+<td>Выберите хост устройства:
+</td>
+<td colspan="2">
+<select id="find_ald_audit_rule_group_id_">
+</select>
+</td>
+</tr>
+
+<tr>
+<td colspan="3"></th>
+</tr>
+
+<tr>
+<th>Подключение</th>
+<th>Идентификатор</th>
+<th></th>
+</tr>
+<tr class="find_rule_ald_device_row_next">
+<!--
+<td class="rule_ald_device_tmp_cols_1" id=""></td>//-->
+<td class="find_rule_ald_device_tmp_cols_2" id=""></td>
+<td class="find_rule_ald_device_tmp_cols_3" id=""></td>
+<td class="find_rule_ald_device_tmp_cols_4" id=""></td>
+</tr>
+</table>
+</div>
+</body>
+</html>

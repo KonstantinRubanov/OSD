@@ -1,0 +1,11 @@
+[Unit]
+Description=asb
+
+[Service]
+ExecStart=/bin/bash -c /opt/asb/scripts/start.sh
+ExecStop=/usr/bin/killall asb
+TimeoutSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

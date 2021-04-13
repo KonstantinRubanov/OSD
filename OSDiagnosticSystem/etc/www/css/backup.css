@@ -1,0 +1,137 @@
+#backup_main_table {
+  display: none;
+}
+
+#backup_host_drive, #backup_ald_drive {
+  padding: 6px;
+  background: #afeeee;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+#p_backup_host, #p_backup_ald {
+  display: inline-block;
+  color: #000080;
+  margin-bottom: 6px;
+}
+
+#cbox_host_backup {
+  width: 278px;
+  height: 32px;
+  margin-bottom: 6px;
+}
+
+.b_insert {
+  background: #D0E0D0;
+}
+
+.bh_list {
+  background: #D0E0D0;
+  border-bottom: solid 1px gray; 
+  margin: 2px;
+  height: 24px;
+}
+
+.ftp_bh_list{
+  background: #E0D0D0;
+  border-bottom: solid 1px gray; 
+  margin: 2px;
+  font-size: 15px;
+  height: 24px;
+}
+
+.bh_list_install {
+   width: 20px; 
+   height: 20px; 
+   float: right; 
+   margin: 2px;
+}  
+
+#img_backup_settings {
+  float: right; 
+  height: 24px; 
+  width: 24px;
+  padding: 3px; 
+  margin: 0px;
+  background: #EEE;
+  border-radius: 3px;
+  border: 1px solid #AAA;
+}
+
+#img_backup_settings:hover {
+  border: 1px solid rgb(32, 122, 182);
+}
+
+#img_backup_settings:active {
+  background: rgb(32, 122, 182);
+  border: 1px solid rgb(32, 122, 182);
+}
+
+.bhs_first_column {
+  width: 80px;
+  margin: 4px;
+}
+
+.bhs_second_column {
+  width: 265px;
+  margin: 4px;
+}
+
+#bhs_server > table > input {
+  width: 300px;
+}
+
+#bhs_btn_add_folder, .btn_img_bhs {
+  display: block;
+  float: right; 
+  height: 16px; 
+  width: 16px;
+  padding: 4px; 
+  margin: 1px;
+  background: #EEE;
+  border-radius: 3px;
+  border: 1px solid #AAA;
+}
+
+.img_backup_load {
+  position: relative;
+  left: -12px;
+  top: -6px;
+}
+
+#bhs_btn_add_folder:hover, .btn_img_bhs:hover {
+  background: #EEE;
+  border: 1px solid rgb(32, 122, 182);
+}
+
+#bhs_btn_add_folder:active, .btn_img_bhs:active {
+background: rgb(32, 122, 182);
+border: 1px solid rgb(32, 122, 182);
+}
+
+.bhs_table_dir {
+  display: block;
+  height: 190px;
+  margin-top: 2px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.bhs_dir_name {
+  display: inline-block;
+  width: 192px;
+  height: 28px;
+  font-size: 0.9em;
+}
+
+#backup_host_settings {
+  display: none;
+}
+
+#div_host_backups {
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 260px;
+  margin-bottom: 4px;
+}

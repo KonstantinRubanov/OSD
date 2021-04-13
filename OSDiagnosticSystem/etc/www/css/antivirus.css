@@ -1,0 +1,154 @@
+#antivirus_scan_hosts_btn {
+  margin: 6px;
+}
+
+#dialog_form {
+      width: 600px;
+      height: 415px;
+      background: white;
+      vertical-align: middle;
+}
+
+#cbox_antiv {
+      width: 50%;
+      height: 32px;
+}
+
+.group_buttons {
+    height: 32px;
+}
+
+#dialog_container, #dialog_dirs, #dialog_journal{
+      top: 0;
+      left: 0;
+      display: none;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+}
+
+#av_journal_text {
+  text-align: left;
+}
+
+.tbl_files {
+  height: 40vh;
+  margin-top: 2px;
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.tbl_files tr:hover{
+  background: rgba(94, 94, 94, .2);
+}
+
+/* #cover-div {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9000;
+      width: 100%;
+      height: 100%;
+      background-color: gray;
+      opacity: 0.7;
+} */
+
+#tb_name {
+    text-align: center;
+}
+#toolBar {
+  padding: 0 0;
+}
+
+.group_name {
+    width: 150px;
+    background: white;
+    position:relative;
+    left:15px;
+    top: 6px;
+    z-index: 2;
+    color: #000080
+}
+
+.group_div {
+   box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+#antiv_install {
+    height: 132px;
+    text-align: left;
+}
+
+#host_scan {
+    height: 198px;
+    text-align: left;
+}
+
+#antiv_installed {
+  height: 32px;
+}
+
+.cmn_view_antiv {
+    position:relative;
+    top: 6px;
+    margin: 12px;
+}
+
+.basement {
+  float: right;
+}
+
+.antv_btn_img {
+  right: 1px;
+  height: 16px; 
+  width: 16px;
+  padding: 4px; 
+  margin: 1px;
+  background: #EEE;
+  border-radius: 3px;
+  border: 1px solid #AAA;
+}
+
+.antv_btn_add_folder {
+  position: absolute; /* Абсолютное позиционирование */
+  right: 1px;
+  height: 16px; 
+  width: 16px;
+  padding: 4px; 
+  margin: 1px;
+  background: #EEE;
+  border-radius: 3px;
+  border: 1px solid #AAA;
+}
+
+.antv_btn_add_folder:hover, .antv_btn_img:hover {
+  background: #EEE;
+  border: 1px solid rgb(32, 122, 182);
+}
+
+.antv_btn_add_folder:active, .antv_btn_img:active{
+  background: rgb(32, 122, 182);
+  border: 1px solid rgb(32, 122, 182);
+}
+
+.antiv_dir_name {
+  width: 160px;
+}
+
+#img_antiv_scan_all {
+  position: relative;
+  left: -12px;
+  top: -6px;
+}
+
+#img_antiv_scan_dialog {
+  position: absolute;
+  left: 126px;
+  top: 0px;
+}
+
+#btn_start_scan_and_save {
+  position: relative;
+  width: 160px;
+}

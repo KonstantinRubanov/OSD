@@ -1,0 +1,157 @@
+<html>
+<head>
+<meta charset="utf-8">
+<script type="text/javascript">
+  $(function() {
+    $('#users_usb_device','.ui-dialog').remove();    
+	$('button[name=ins_user_usb_group]').click(function(e) {
+       $('#users_usb_device').dialog({ 
+                           width: 500});         
+    });    	
+    
+    /*
+    $('#users_attr_device','.ui-dialog').remove();       
+    $('#s_owner_user_usb').change(function() {      
+      if($(this).is(':checked')) 
+         $('#users_attr_device').dialog({ 
+                           width: 500});  
+    });     
+     
+    $('button[name=save_user_usb_attr]').click(function() {                  
+        $('#users_attr_device').dialog('close');      
+    });
+    */
+    $('#s_owner_user_usb').change(function() {
+        if ($("#users_attr_device").is(":hidden")) {
+            $("#users_attr_device").show("slow");
+        } else {
+            $("#users_attr_device").hide("slow");
+        }
+        return false;
+    });
+    
+    
+  });
+</script> 
+<title>Управление параметрами udev</title>
+</head>
+<body onload="">
+<div class="group_list_all_div" id="audit_block">
+<div class="header1"></div>
+<div class="header2"></div>
+<div id="headerDev">
+<span>Тип конфигурируемого устройства:
+<select id="devbus_rule_who_id_">
+<option value="busCD">CD</option>
+<option value="rulesUSB" selected>USB-правила</option>
+</select></span>
+</div>
+<h5>Управление правилами udev USB-устройств</h5>
+<table class="tb_switch_dev_list_tmpl" id="pathtable_line">
+<tr>
+<td><span>Файл правил UDEV /etc/udev/rules.d/99-usb.rules</span></td><td><label class="switch"><input type="checkbox" name="mod_switch" id="udevd_rule_storage"><span class="slider round"></span></label></td>
+<tr>
+</table>
+<br>
+<div class="if_rules_storage"></div>
+<span>*Создание правил udev позволяет определять реакцию системы на подключение USB-устройств.<span>
+<span>Правила позволяют разрешить подключение отдельных  USB-дисков (по данным идентификатора устройства).<span>
+<br>
+<div class="header_state_storage"></div>
+<table class="tb_group_dev_list_tmpl" id="pathtable_line">
+<tr>
+<th>Устройство</th>
+<th>Идентификатор</th>
+<th>Описание</th>
+<th>Правило</th>
+<th></th>
+</tr>
+<tr class="device_row_next">
+<td class="device_tmp_cols_1" id=""></td>
+<td class="device_tmp_cols_2" id=""></td>
+<td class="device_tmp_cols_vendor" id=""></td>
+<td class="device_tmp_cols_3" id=""></td>
+<td class="device_tmp_cols_4" id=""><img id="#remove_from" name="mod_drive_disable" src="images/delete_icon.png"  class="rule_remove_audit"/></td>
+</tr>
+</table>
+<br>
+<button  class="dev_defbutton"  name="ins_user_usb_group">Добавить правило</button> <button  class="dev_defbutton"  name="ins_user_usb_update">Обновить
+</button>
+
+<div id="users_usb_device" title="Добавить правило udev" class="div_menu">
+<br>
+<table id="pathtable_line">
+<tr>
+<td>
+ Список устройств
+</td>
+<td>
+ <select id="usb_hard_rule_who_id_">
+ </select>
+</td>
+</tr>
+</table>
+
+<div id="users_attr_device" title="Атрибуты доступа файла устройства" class="div_menu">
+<table id="pathtable_line">
+<tr>
+<td>
+ Список групп
+</td>
+<td>
+ <select id="audit_rule_group_id_">
+ </select>
+</td>
+</tr>
+<tr>
+<td>
+ Список пользователей
+</td>
+<td>
+ <select id="audit_rule_who_id_">
+ </select>
+</td>
+</tr>
+
+
+<tr><td>Права пользователя</td><td>
+<div><input type="checkbox" id="discrete_bit_8" value="own_bit_r">
+<img src="images/state_read.png">
+<input type="checkbox" id="discrete_bit_7" value="own_bit_w">
+<img src="images/state_write.png">
+<input type="checkbox" id="discrete_bit_6" value="own_bit_e">
+<img src="images/state_run.png"></div></td>
+</tr>
+<tr><td>Права группы</td>
+<td><div><input type="checkbox" id="discrete_bit_5" value="bit_group_r">
+<img src="images/state_read.png">
+<input type="checkbox" id="discrete_bit_4" value="bit_group_w">
+<img src="images/state_write.png">
+<input type="checkbox" id="discrete_bit_3" value="bit_group_e">
+<img src="images/state_run.png"></div></td>
+</tr>
+<tr><td>Права остальных</td>
+<td><div><input type="checkbox" id="discrete_bit_2" value="other_bit_r">
+<img src="images/state_read.png">
+<input type="checkbox" id="discrete_bit_1" value="other_bit_w">
+<img src="images/state_write.png">
+<input type="checkbox" id="discrete_bit_0" value="other_bit_e">
+<img src="images/state_run.png"></div></td>
+</tr>
+<tr><td  colspan="2"></td></tr>
+</table>
+
+</div>
+
+<br>
+
+<input type="checkbox" id="s_owner_user_usb" value="s_owner_user_usb">Включить в правило атрибуты доступа
+<br>
+<br>
+<button  class="dev_defbutton"  name="save_user_usb_group">Добавить разрешение
+</button>
+</div>
+
+</div>
+</body>
+</html>

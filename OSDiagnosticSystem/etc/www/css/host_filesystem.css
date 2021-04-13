@@ -1,0 +1,54 @@
+#hf_window {
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+  }
+
+  .hf_dir_header {
+    background: #FFF;
+    height: 26px;
+    border: 1px solid #AAA;
+    border-radius: 3px;
+  }
+
+  #hfs_back {
+    display: block;
+    float: right; 
+    height: 24px; 
+    width: 24px;
+    background: #EEE;
+    border-radius: 3px;
+    border: 1px solid #AAA;
+  }
+
+  #hf_fs_path_name {
+    float: left; 
+    padding: 4px;
+  }
+
+  #hf_insert_path {
+    float: left; 
+    padding: 4px;
+    font-size: 1em;
+  }
+
+  #hf_bottom_panel {
+    background: #EEE;
+    height: 29px;
+    border: 1px solid #EEE;
+    border-radius: 3px;
+    margin-top: 2px;
+  }
+  
+  #hfs_back:hover {
+    background: #EEE;
+    border: 1px solid rgb(32, 122, 182);
+  }
+  
+  #hfs_back:active {
+    background: rgb(32, 122, 182);
+    border: 1px solid rgb(32, 122, 182);
+  }

@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>journals</title>
+<link href="../css/journals.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/journals.js"></script>
+</head>
+<body>
+  <div class="print_auth_log">
+    <div class="title_div">
+      <div class="div_loader">
+        <img id="img_jrnl_loader" src="images/loader.gif" width="32px" height="32px" style="padding: 5px;"/>
+        <img id="img_jrnl_loader_start" class="btn_updates" src="images/update.png" width="32px" height="32px" onclick="journalGetList()"/>
+      </div>
+      <p align="center" class="main_group_name">Управление журналами регистрации и учета</p>
+    </div>
+    <div style="float: right;" id="journal_create" class="main_right_panel">
+      <div id="div_create_arch">
+        <span id="p_create_arch">Создание архива</span>
+        <div>
+          <div class="j_block"><span>Начало:</span><input type="date" name="start date" value="" id="log_start_date"></div>
+          <div class="j_block"><span>Конец:</span><input type="date" name="stop date" value="" id="log_stop_date"></div>
+        </div>
+        <div>
+          <button id="journals_btn_create" class="defbutton" onclick="journalCreateArch()">Создать
+            <img id="img_journal_create_load" src="images/loader.gif" width="32px" height="32px""/>
+          </button>
+        </div>
+      </div>
+    </div>
+      <table border="0" cellpadding="5" cellspacing="0" class="main_table" id="#journals_main_table">
+        <thead class="main_tbl_head">
+          <tr>
+            <th align="left">№</th>
+            <th align="center">Временной диапазон</th>
+            <th align="center">Дата и время создания</th>
+            <th align="center">Удаление</th>
+            <th align="center">Печать</th>
+            <th align="right">Скачать</th>
+          </tr>
+        </thead>
+        <tbody class="main_tbl_body" id="tbl_journals">
+        </tbody>
+      </table>
+  </div>
+  <div id="journal_text" style="font-size: xx-small;"/>
+</body>
+</html>

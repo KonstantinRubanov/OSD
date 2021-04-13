@@ -1,0 +1,28 @@
+<html>
+<head>
+<meta charset="utf-8">
+<script type="text/javascript">
+$(function() {
+	
+    $('.rules_hidden_dir','.ui-dialog').remove();    
+	$('#add_audit_file').click(function(e) {
+         //showInfoDevLock('table_save_audit_folder', 1);  
+         $('.rules_hidden_dir').dialog({ 
+                           width: 500 ,
+                           height: 400 });
+         
+    });
+			
+});
+    </script>  
+<title>Список ресурсов</title>
+</head>
+<body onload="">
+<div class="rules_audit_div_folder">
+    <div class="rules_audit_button">
+    <button class="dev_defbutton"  id="add_audit_file">Добавить ресурс</button> 
+    </div>    
+    <div class="rules_hidden_dir" id="table_save_audit_folder" style="height: 400px; overflow-y: scroll; display: none;" title="Добавление ресурса" >             
+    </div>	
+</body>
+</html>

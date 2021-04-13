@@ -1,0 +1,175 @@
+<html>
+<head>
+<meta charset="utf-8">
+<link href="../css/devices.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+$(function() {
+	
+    $('#table_save_audit','.ui-dialog').remove();    
+	$('#create_rule').click(function(e) {
+       //showInfoDevLock('table_save_audit', 1);  
+       $('#table_save_audit').dialog({ 
+                           width: 700});         
+    });
+    
+			
+});
+    </script> 
+<title>Правила аудита</title>
+</head>
+<body onload="">
+<div class="rules_audit_header">
+<table id="pathtable_line">
+<tr class="rule_header_th">
+<th>Тип субъекта аудита</th>
+<th>Имя</th>
+<th>Правило</th>
+<th></th>
+</tr>
+<tr class="rule_row_next">
+<td><label class="rule_type_obj"></label></td>
+<td><label class="rule_name_obj"></label></td>
+<td><label class="rule_text_obj"></label></td>
+<td><img class="rule_remove_audit" id="#remove_audit" name="rem_audit" src="images/delete_icon.png"/></td>
+</tr>
+</table>
+</div>
+
+<div class="add_audit_bt_mod_div">
+<br>
+<button id="create_rule" class="dev_defbutton">Задать правило</button> <button id="audit_rule_subject_clear" class="dev_defbutton" >Удалить все правила</button>
+</div">
+
+<div class="add_audit_div">
+<div class="rules_hidden" id="table_save_audit" title="Добавление правила аудита" style="display: none;">
+<table id="table_save_audit_div">
+<tr><td><label>Тип субъекта:</label></td>
+<td>	
+<div>		
+  <select name="audit_rule_subject" class="audit_rule_subject_" id="audit_rule_subject_id">
+' <option value="o">Все</option>
+  <option value="au">Пользователи ALD</option>
+  <option value="ag">Группы ALD</option>
+  <option value="lu">Локальные пользователи</option>
+  <option value="lg">Локальные группы</option>
+  </select>
+</div>
+</td></tr>
+<tr><td><label id="audit_subj_label_">Субъект:</label></td>
+<td>
+<div>		
+ <select name="audit_rule_who_name" id="audit_rule_who_id_">
+ <option value="audit_rule_sub_all">-</option>
+ </select>
+ </div>
+</td></tr>
+<tr><td><label>Успех:</label></td>
+<td>
+<div id="audit_success_checkbox_list_">		
+<table id="pathtable_line">
+<tr>
+<td class="td_center">o</td>
+<td class="td_center">x</td>
+<td class="td_center">u</td>
+<td class="td_center">d</td>
+<td class="td_center">n</td>
+<td class="td_center">a</td>
+<td class="td_center">r</td>
+<td class="td_center">m</td>
+<td class="td_center">c</td>
+<td class="td_center">y</td>
+</tr>
+<tr>
+<td  class="td_center">
+<input type="checkbox"  class="checkbox" value="o" title="Открытие файла" />
+</td>
+<td class="td_center">
+<input type="checkbox"  class="checkbox" value="x" title="Исполнение файла" />
+</td>
+<td  class="td_center">
+<input type="checkbox"  class="checkbox" value="u" title="Удаление файла (в каталоге)" />
+</td>
+<td  class="td_center">
+<input type="checkbox"  class="checkbox" value="d" title="Изменение прав доступа к файлу" />
+</td>
+<td  class="td_center">
+<input type="checkbox"  class="checkbox" value="n" title="Смена владельца" />
+</td>
+<td  class="td_center">
+<input type="checkbox"  class="checkbox" value="a" title="Изменение списка регистрируемых событий файла" />
+</td>
+<td  class="td_center">
+<input type="checkbox"  class="checkbox" value="r" title="Смена ACL" />
+</td>
+<td class="td_center">
+<input type="checkbox"  class="checkbox" value="m" title="Изменение метки" />
+</td>
+<td class="td_center">
+<input type="checkbox"  class="checkbox" value="c" title="Создание файла" />
+</td>
+<td class="td_center">
+<input type="checkbox"  class="checkbox" value="y" title="Изменение файла" />
+</td>
+<tr>
+</table>.
+ </div>
+</td></tr>
+<tr><td><label>Отказ:</label></td>
+<td>
+<div id="audit_fail_checkbox_list_">	
+<table id="pathtable_line">
+<tr>
+<td class="td_center">o</td>
+<td class="td_center">x</td>
+<td class="td_center">u</td>
+<td class="td_center">d</td>
+<td class="td_center">n</td>
+<td class="td_center">a</td>
+<td class="td_center">r</td>
+<td class="td_center">m</td>
+<td class="td_center">c</td>
+<td class="td_center">y</td>
+</tr>
+<tr>
+<td class="td_center">
+<input type="checkbox" class="checkbox" value="o" title="Открытие файла" />
+</td>
+<td class="td_center">
+<input type="checkbox" class="checkbox" value="x" title="Исполнение файла" />
+</td>
+<td class="td_center">
+<input type="checkbox" class="checkbox" value="u" title="Удаление файла (в каталоге)" />
+</td>
+<td class="td_center"> 
+<input type="checkbox" class="checkbox" value="d" title="Изменение прав доступа к файлу" />
+</td>
+<td class="td_center"> 
+<input type="checkbox" class="checkbox" value="n" title="Смена владельца" />
+</td>
+<td class="td_center"> 
+<input type="checkbox" class="checkbox" value="a" title="Изменение списка регистрируемых событий файла" />
+</td>
+<td class="td_center">
+<input type="checkbox" class="checkbox" value="r" title="Смена ACL" />
+</td>
+<td class="td_center"> 
+<input type="checkbox" class="checkbox" value="m" title="Изменение метки" />
+</td>
+<td class="td_center">
+<input type="checkbox" class="checkbox" value="c" title="Создание файла" />
+</td>
+<td class="td_center">
+<input type="checkbox" class="checkbox" value="y" title="Изменение файла" />
+</td>
+</tr>
+</table>
+ </div>
+</td></tr>
+<tr><td colspan="4">
+	<div><label>&nbsp;</label><button class="dev_defbutton"  id="add_audit_rule_submit_id_">Сохранить правило аудита</button></div></td></tr>
+</table>
+</div>
+</div>
+</div>
+</body>
+</html>

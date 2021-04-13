@@ -1,0 +1,103 @@
+#control_scan_hosts_btn {
+    margin: 6px;
+  }
+
+#dialog_control_journal, #dialog_control_settings, #dialog_control_audit{
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+#control_journal_text, #control_audit_text {
+  overflow: scroll;
+  width: 600px;
+  height: 400px;
+  text-align: left;
+}
+
+#control_dir_settings {
+  width: 600px;
+  height: 300px;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+#control_div_set_dir, #control_div_ignore_dir {
+  border: 1px solid gray;
+  height: 300px;
+  flex-grow: 5;
+}
+
+#control_span_hostname {
+  padding: 6px;
+  float: left;
+  font-weight: bold;
+}
+
+#control_btn_accept, #control_btn_cancel {
+  margin-top: 6px;
+}
+
+.control_dir_header {
+    height: 28px; 
+    background: #DDD;
+}
+
+.control_dir_header > span {
+    float: left; 
+    padding: 6px;
+}
+.control_dir_header > img, .btn_img_control {
+    float: right; 
+    height: 16px; 
+    width: 16px;
+    padding: 4px; 
+    margin: 1px;
+    background: #EEE;
+    border-radius: 3px;
+    border: 1px solid #AAA;
+}
+
+.control_dir_header > img:hover, .btn_img_control:hover {
+    float: right; 
+    height: 16px; 
+    width: 16px;
+    padding: 4px; 
+    margin: 1px;
+    background: #EEE;
+    border-radius: 3px;
+    border: 1px solid rgb(32, 122, 182);
+}
+
+.control_dir_header > img:active, .btn_img_control:active {
+  float: right; 
+  height: 16px; 
+  width: 16px;
+  padding: 4px; 
+  margin: 1px;
+  background: rgb(32, 122, 182);
+  border-radius: 3px;
+  border: 1px solid rgb(32, 122, 182);
+}
+
+.control_table_dir {
+    display: block;
+    height: 265px;
+    margin-top: 2px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.control_dir_name {
+    display: block;
+    width: 128px;
+}
+
+#img_control_check_all {
+  position: relative;
+  left: -12px;
+  top: -6px;
+}

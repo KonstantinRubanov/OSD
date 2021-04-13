@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+
+  <meta charset="UTF-8">
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Мониторинг</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css" />
+  <script type="text/javascript" src="js/main.js" async ></script>
+</head>
+<body>
+  <ul>
+    <li>
+      <form  action="/ald" method="post" >
+        <input type="submit" value="ALD" />
+      </form>
+    </li>
+    <li>
+        <button type="button" name="userlist_btn" onclick="userlistAld()">Список пользователей ALD</button>
+    </li>
+    <li>
+        <button type="button" name="tests_start" onclick="testStart()">Тесты СЗИ</button>
+    </li>
+    <li>
+      <form  action="/users" method="post" >
+        <input type="submit" value="Пользователи" name=""/>
+      </form>
+    </li>
+    <li>
+      <button type="button" name="tests_start" onclick="backupAldStart()">Backup ALD</button>
+    </li>
+  </ul>
+  <br /><br />
+  <div class="print_auth_log">
+    <input type="date" name="start date" value="" id="log_start_date">
+    <input type="date" name="stop date" value="" id="log_stop_date">
+    <button onclick="logPrint()">Показать лог</button>
+    <button onclick="OutToPrinter()">Печать</button>
+    <button onclick="createJournalArch()">Создать архив</button>
+    <button onclick="journalGetData()">Список журналов</button>
+  </div>
+  <div class="antiv_data">
+    <button onclick="GetHostsList()">Список хостов</button>
+    <input type="text" id="host_name" placeholder="Хост:Дистрибутив"/>
+    <button onclick="InstallAntivOnHost()">Установить антивирус</button>
+  </div>
+  <br /><br />
+  <div id="tests_block">
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+.tabs__content_discr {
+  display: none; /* по умолчанию прячем все блоки */
+}
+.tabs__content_discr.active {
+  display: block; /* по умолчанию показываем нужный блок */
+}
+
+.tabs__caption_discr {
+    margin: 0;
+    padding: 0;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	    -ms-flex-wrap: wrap;
+	        flex-wrap: wrap;
+	list-style: none;
+	position: relative;
+	/*margin: -1px 0 0 -1px;*/
+
+}
+.tabs__caption_discr li:last-child:before {
+	content: '';
+	position: absolute;
+	/*bottom: -5px;*/
+	left: 0;
+	right: -2px;
+	z-index: -1;
+	height: 5px;
+	background: #ccc;
+}
+.tabs__caption_discr:after {
+	content: '';
+	display: table;
+	clear: both;
+}
+
+.tabs__caption_discr li {
+	padding: 9px 15px;
+	margin: 1px 0 0 1px;
+	background: #ccc;
+	color: #FFF;
+	position: relative;
+	border: solid #ccc;
+	border-width: 2px 2px 0;
+	border-radius: 5px 5px 0 0;
+	text-align: left;
+	
+}
+.tabs__caption_discr li:not(.active) {
+	cursor: pointer;
+}
+.tabs__caption_discr li:not(.active):hover {
+	background: #ccc;
+	border-color: #ccc;
+}
+.tabs__caption_discr .active {
+	background: #FFF;
+	color: #000;
+	border-color: #ccc;
+}
+.tabs__caption_discr .active:after {
+	content: '';
+	position: absolute;
+	/*bottom: -5px;**/
+	left: 0;
+	right: 0;
+	height: 5px;
+	background: #FFF;
+}
+
+</style>
+<script type="text/javascript">
+$(function() {
+	
+    $('#table_save_acl','.ui-dialog').remove();    
+	$('button[name=b_acl_add]').click(function(e) {
+       //showInfoDevLock('table_save_audit', 1);  
+       $('#table_save_acl').dialog({ 
+                           width: 500});         
+    });
+    
+ $('ul.tabs__caption_discr').on('click', 'li:not(.active)', function() {
+    $(this).addClass('active').siblings().removeClass('active')
+      .closest('div.tabs_discr').find('div.tabs__content_discr').removeClass('active').eq($(this).index()).addClass('active');
+  })	
+		
+});
+
+
+</script>
+<title>Правила аудита</title>
+</head>
+<body onload="">
+<div class="discrete_list_all_div">
+
+<div class="tabs_discr">
+<div class="header_list">
+</div>
+<input id="filetype_" name="filetype_" type="hidden" value="">
+
+<ul class="tabs__caption_discr">
+<li id="w_1_tab_descr" class="active"><span>Дискреционные атрибуты</span></li>
+<li id="w_2_tab_descr"><span>Списки контроля доступа ACL</span></li>
+<li id="w_3_tab_descr"><span>Мандатная метка</span></li>
+</ul> 
+  
+<div class="discrete_list">
+<div class="tabs__content_discr active">
+<table id="pathtable_line"><tr>
+<th colspan="4"></th></tr>
+<tr><td colspan="4">
+<input type="checkbox" id="s_bit_suid" value=""   class="bits_header"> SUID<br>
+<input type="checkbox" id="s_bit_sguid" value=""  class="bits_header"> SGUID<br>
+<input type="checkbox" id="s_bit_sticky" value="" class="bits_header"> Sticky бит</td></tr>
+
+
+
+
+<tr><th>Владелец</th><th>Группа</th><th></th><th></th></tr>
+<tr>
+<td class="NamesOwner"><select save="" id="discrete_who_id_own"></select></td>
+<td class="NamesGroup"><select save="" id="discrete_who_id_group"></select></td>
+<td></td>
+<td></td></tr>
+
+<tr><th></th><th>Атрибуты</th><th>По умолчанию</th><th></th></tr><tr><td>Права пользователя</td><td>
+<div><input type="checkbox" id="discrete_bit_8" value="own_bit_r">
+<img class="read_state" src="images/state_read.png">
+<input type="checkbox" id="discrete_bit_7" value="own_bit_w">
+<img class="write_state" src="images/state_write.png">
+<input type="checkbox" id="discrete_bit_6" value="own_bit_e">
+<img class="run_state" src="images/state_run.png"></div></td>
+<td class="DefAclObjectUser">
+<input type="checkbox" id = "def_u_1" value="bit_r">
+<img class="read_state" src="images/state_read.png">
+<input type="checkbox" id = "def_u_2" value="bit_w">
+<img class="write_state" src="images/state_write.png">
+<input type="checkbox" id = "def_u_3" value="bit_e">
+<img class="run_state" src="images/state_run.png">
+</td>
+<td></td></tr>
+<tr><td>Права группы</td>
+<td><div><input type="checkbox" id="discrete_bit_5" value="bit_group_r">
+<img class="read_state" src="images/state_read.png">
+<input type="checkbox" id="discrete_bit_4" value="bit_group_w">
+<img class="write_state" src="images/state_write.png">
+<input type="checkbox" id="discrete_bit_3" value="bit_group_e">
+<img class="run_state" src="images/state_run.png"></div></td>
+<td class="DefAclObjectGroup">
+<input type="checkbox" id = "def_g_1" value="bit_r">
+<img class="read_state" src="images/state_read.png">
+<input type="checkbox" id = "def_g_2" value="bit_w">
+<img class="write_state" src="images/state_write.png">
+<input type="checkbox" id = "def_g_3" value="bit_e">
+<img class="run_state" src="images/state_run.png">
+</td>
+<td></td></tr>
+<tr><td>Права остальных</td>
+<td><div><input type="checkbox" id="discrete_bit_2" value="other_bit_r">
+<img class="read_state" src="images/state_read.png">
+<input type="checkbox" id="discrete_bit_1" value="other_bit_w">
+<img class="write_state" src="images/state_write.png">
+<input type="checkbox" id="discrete_bit_0" value="other_bit_e">
+<img class="run_state" src="images/state_run.png"></div></td>
+<td class="DefAclObjectOther">
+<input type="checkbox" id = "def_o_1" value="bit_r">
+<img class="read_state" src="images/state_read.png">
+<input type="checkbox" id = "def_o_2" value="bit_w">
+<img class="write_state" src="images/state_write.png">
+<input type="checkbox" id = "def_o_3" value="bit_e">
+<img class="run_state" src="images/state_run.png">
+</td>
+<td></td></tr>
+</table>
+
+<button class="dev_defbutton" name="b_discrete_save" onclick="">Сохранить</button>  
+</div>
+</div>
+
+<div class="tabs__content_discr">
+<table id="pathtable_line" class="table_cur_acl_rules"><tr><th colspan="6"></th></tr><tr><td>Тип субъекта ACL</td><td>Имя</td><td>Правило</td><td></td><td>По умолчанию</td><td></td></tr>
+<tr class="def_row_next">
+<td class="acl_td_1"></td>
+<td class="acl_td_2"></td>
+<td class="acl_td_3"></td>                
+<td class="acl_td_4"><span id="glowtext"><img class="system_image" src="images/delete_icon.png"></span></td>            
+<td class="acl_td_5"></td>
+<td class="acl_td_6"></td>
+</table>
+
+<div id="table_save_acl" class="div_menu" title="Добавление правила ACL">
+<table class="leftcoltable">
+<tr><td>Тип субъекта ACL</td><td><span>
+<input name="dradio_type" class="ResourceLocalObjectsSelectUser"  type="radio" value="u:" checked> Пользователь</span><span>
+<input name="dradio_type" class="ResourceLocalObjectsSelectGroup" type="radio" value="g:"> Группа</span><span>
+<input name="dradio_type" type="radio" value="m:"> Маска</span>
+</td></tr>
+<tr><td>Имя</td>
+<td><div id="ListObjects"><select name="audit_rule_who_name" id="audit_rule_who_id_">
+<option value="audit_rule_sub_all">-</option>
+</select></div>
+</td></tr>
+<tr><td>Атрибуты</td>
+<td><div><span><input type="checkbox" id="acl_bit_r" value="acl_bit_r"><img class="read_state" src="images/state_read.png">
+<input type="checkbox" id="acl_bit_w" value="acl_bit_w"><img class="write_state" src="images/state_write.png">
+<input type="checkbox" id="acl_bit_e" value="acl_bit_e"><img class="run_state" src="images/state_run.png"></span></div>
+</td></tr>
+<tr><td>По умолчанию</td>
+<td><span><input type="checkbox" id="acl_def_bit" value="default:">  По умолчанию</span>
+</td></tr></table>
+<br><span><button class="dev_defbutton" name="b_acl_in">Сохранить</button></span>
+</div>
+<button class="dev_defbutton" name="b_acl_add">Добавить правило ACL</button>
+<button class="dev_defbutton" name="b_acl_delete_all">Удалить все правила</button>
+</div>
+
+
+<div id="MandatObjects"><div class="tabs__content_discr"></div></div>
+
+
+</div>
+</div>
+</body>
+</html>

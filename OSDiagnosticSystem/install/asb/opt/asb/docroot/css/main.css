@@ -1,0 +1,17 @@
+ul {
+  list-style: none; /*убираем маркеры списка*/
+  margin: 0; /*убираем верхнее и нижнее поле, равное 1em*/
+  padding-left: 0; /*убираем левый отступ, равный 40px*/
+}
+a {text-decoration: none; /*убираем подчеркивание текста ссылок*/}
+li {float: left;}
+
+.print_auth_log {
+  background: #0F0;
+  padding: 5px;
+}
+
+.antiv_data {
+  background: #0FF;
+  padding: 5px;
+}

@@ -1,0 +1,489 @@
+/* eslint-env browser */
+
+var antivirusStates = []; /* Список антивирусов, предназначеных для установки на хосты*/
+var dirsForScanHost = ""; /* Список папок для сканирования (разделены ;)*/
+var hostSelectedDirs = {};  // Каталоги назначеные для проверки определенного хоста
+var runCommand = {};  // Состояние выполнения команды для хоста
+var hostObjects = {}; // Все td объекты принадлежащие данному хосту
+
+/* Действия при загрузке этого js */
+$(document).ready(function() { antivirusGetList(); } );
+
+/* Запрос списка хостов с антивирусами + доступные дистрибутивы */
+function antivirusGetList(func) {
+  "use strict";
+  sendAjaxRequest("/antivirus", "get=host-list", function(data) {
+    var count = 1;
+    var listOfNames = JSON.parse(data);
+    $("#tbl_antivirus tr").remove();
+    for (var i in listOfNames.data) {
+        var antivName = listOfNames.data[i].drweb != 0 ? "dr.Web " + listOfNames.data[i].drweb : listOfNames.data[i].kaspersky != 0 ?
+            "Kaspersky " + listOfNames.data[i].kaspersky : "---";
+        addRow(count++,
+               listOfNames.data[i].host,
+               listOfNames.data[i].ip,
+               antivName,
+               listOfNames.data[i].check,
+               listOfNames.data[i].journal,
+               listOfNames.data[i].update,
+               listOfNames.data[i].scan_type,
+               listOfNames.data[i].dir_list);
+        hostSelectedDirs[listOfNames.data[i].host] = listOfNames.data[i].dir_list;
+    }
+    antivirusStates = listOfNames.options;
+    if(func != "undefined") {
+      func();
+    }
+  });
+  /* Добавление строки в таблицу */
+  function addRow(count, host, ip, av_state, av_check, av_journal, av_update, scan_type, dir_list) {
+    var trObj = document.createElement("TR");
+    createTD(count);
+    createTD(host);
+    var tdObjects = {};
+    tdObjects.ip = createTD(ip);
+    tdObjects.av_state = createTDHref(av_state, "Настройка", "showAntivOptionsDialog(\"" + host + "\", \"" + scan_type + "\", \"" + dir_list + "\")");
+
+    if(av_state === "---") {
+      tdObjects.av_check = createTD(av_check.length === 0 ? "---" : av_check);
+      tdObjects.av_journal = createTDHref((av_check.length === 0) ? "###" : "Угроз: " + av_journal, "Открыть", "openScanJournal(\"" + host + "\")");
+      tdObjects.av_update = createTD("---");
+    }
+    else {
+      tdObjects.av_check = createTDHref((av_check.length === 0 ? "---" : av_check), "Запуск", "startHostScan(\"" + host + "\")");
+      tdObjects.av_journal = createTDHref((av_check.length === 0) ? "###" : "Угроз: " + av_journal, "Открыть", "openScanJournal(\"" + host + "\")");
+      tdObjects.av_update = createTDHref((av_update === "" ? "---" : av_update), "Обновить", "antivUpdate(\"" + host + "\")");
+    }
+    hostObjects[host] = tdObjects;
+    runCommand[host] = false;
+    $("#tbl_antivirus").append(trObj);
+    /* Создание элемента td в строке таблицы */
+    function createTD(text) {
+      var tdObj = $('<td/>', {align: "center", text: text});
+      tdObj.appendTo(trObj);
+      return tdObj;
+    }
+    /* Создание элемента td с ссылкой и функцией в строке таблицы */
+    function createTDHref(text, href_name, func) {
+      var tdObj = $('<td>', {align: "center",
+        append: $('<span>', {text: text === "###" ? "---" : text}).add('<br>').add('<a>', {
+          href: '#', text: href_name,
+          on: { click: function(event) { eval(func);}},
+      }),});
+      if(text === "###") {
+        tdObj.find('a').hide();
+        tdObj.find('br').hide();
+      }
+      tdObj.appendTo(trObj);
+      return tdObj;
+    }
+  }
+}
+
+/* Запрос на проведение сканирования для всех хостов */
+function antivirusCheckAllHosts()
+{
+  Object.keys(hostObjects).forEach(function(key) {
+    startHostScan(key);
+  });
+}
+/* Запрос на проведение сканирования для одного хоста */
+function startHostScan(host)
+{
+  var textElement = hostObjects[host].av_check.find('span');
+  var hrefElement = hostObjects[host].av_check.find('a');
+  var jrnlElement = hostObjects[host].av_journal;
+  textElement.text("Запуск...");
+  hrefElement.hide();
+  sendAjaxRequest("/antivirus", "scan=host&host=" + host + "&command=start", function(data) {
+    var timerId = setInterval(function() {
+      sendAjaxRequest("/antivirus", "scan=host&host=" + host + "&command=state", function(data) {
+        var listOfNames = JSON.parse(data);
+        if(listOfNames["state"] === "stop") {
+          clearInterval(timerId);
+          hrefElement.show();
+          textElement.text(listOfNames.check);
+          if(listOfNames.journal != "") {
+            jrnlElement.find('span').text("Угроз: " + listOfNames.journal);
+            jrnlElement.find('br').show();
+            jrnlElement.find('a').show();
+          }
+          
+        } else if (listOfNames["state"] === "process") {
+          // Может быть в будущем сделаю счетчик
+          textElement.text("Сканирование...");
+        }
+      });
+    }, 2000);
+  });
+}
+
+function openScanJournal(host) 
+{
+  sendAjaxRequest("/antivirus", "get=scan_journal&host=" + host, function(data) {
+    var listOfNames = JSON.parse(data);
+    var TextBlock_str = "";
+    for(i in listOfNames.data) {
+      TextBlock_str += listOfNames.data[i].string + "<br>";
+    }
+    $("#journal_text").html(TextBlock_str);
+  });
+  $("#dialog_journal").dialog({
+      width: 'auto',
+      height: 'auto'
+  });
+}
+
+function antivUpdate(host) 
+{
+  var textElement = hostObjects[host].av_update.find('span');//$(object).parent().find('span');
+  var hrefElement = hostObjects[host].av_update.find('a');//$(object).parent().find('a');
+  var isEnd = false;
+  textElement.text("Запуск...");
+  hrefElement.hide();
+  sendAjaxRequest("/antivirus", "antiv=update&host=" + host + "&command=start", function(data) {
+    var timerId = setInterval(function() {
+      sendAjaxRequest("/antivirus", "antiv=update&host=" + host + "&command=state", function(data) {
+        var listOfNames = JSON.parse(data);
+        if(listOfNames["state"] === "stop") {
+          clearInterval(timerId);
+          textElement.text(listOfNames.update);
+          hrefElement.show();
+        } else if (listOfNames["state"] === "process") {
+          // Может быть в будущем сделаю счетчик
+          textElement.text("Обновление...");
+        }
+      });
+    }, 2000);
+  });
+}
+
+function antivSaveTypeAndScan() 
+{
+  var host = $("#tb_name").text();
+  sendAjaxRequest("/antivirus", "scan=host_type&host=" + host +
+                  "&type=" + $('input[name=rb_scan]:checked', '#host_scan').val() + "&dir_list=" +
+                  hostSelectedDirs[host], function(data) {
+    antivirusGetList(function() {
+      startHostScan(host);
+    });
+  });
+}
+
+//---------------------------------------------------------------------------------------
+function showAntivOptionsDialog(host, scan_type, dir_list) {
+  var antiv = hostObjects[host].av_state.find('span').text();//$(object).parent().find('span').text();
+  var cboxAntiv = $("#cbox_antiv");
+  var btnAntivInstall = $("#btn_install_antiv");
+  var btnAntivRemove = $("#btn_rm_antiv");
+  var btnScanTypeReset = $("#btn_scan_type_reset");
+  var selectedDirs = hostSelectedDirs[host];
+  var antivName = $("#antiv_name");
+  var btnScanStart = $("#btn_start_scan_and_save");
+  btnScanTypeReset.prop("disabled", true);
+  btnAntivInstall.prop("disabled", true);
+  $("#tb_name").text(host);
+  antivName.text(antiv);
+  cboxAntiv.empty();
+  cboxAntiv.val(0);
+  cboxAntiv.change(function(){
+      btnAntivInstall.prop("disabled", ($(this).val() === "0"));
+  });
+  $('#dialog_container').dialog({
+      width: 'auto',
+      height: 'auto'
+  });
+  if(antivirusStates.length === 0) {
+      addOption(0, "Нет доступных дистрибутивов");
+      mainSelect.setAttribute("disabled", "disabled");
+  }
+  else {
+    addOption(0, "Выбор антивируса");
+    var count = 1;
+    for (var i in antivirusStates) {
+        addOption(count++, antivirusStates[i].av_version);
+    }
+  }
+  btnScanStart.prop("disabled", antiv === "---");
+  btnAntivRemove.prop( "disabled", (antiv.indexOf("---") >= 0));
+  $("input[name=rb_scan][value='" + scan_type + "']").prop('checked', true);
+  $('input[type=radio][name=rb_scan]').change(function(){
+    btnScanTypeReset.prop("disabled", false);
+  });
+  /* Добавляет найденные антивирусы в список */
+  function addOption(value, text) {
+    cboxAntiv.append($('<option>', {value: value, text: text}));
+  }
+  btnAntivInstall.click(function() {
+    installAntiv(host);
+  });
+  btnAntivRemove.click(function() {
+    removeAntiv(host);
+  });
+  btnScanTypeReset.click(function() {
+    $("input[name=rb_scan][value='" + scan_type + "']").prop('checked', true);
+    hostSelectedDirs[host] = selectedDirs;
+  });
+}
+
+function complete() {
+    $('#dialog_container').dialog("close");
+}
+
+function reinstallAntivirus(host) {
+  // Сначала удалим нормально
+  $("#antiv_name").text("Удаление...");
+  var textElement = hostObjects[host].av_state.find('span');
+  var hrefElement = hostObjects[host].av_state.find('a');
+  var btnScanStart = $("#btn_start_scan_and_save");
+  hrefElement.hide();
+  var saveText = textElement.text();
+  removeAntiv(host, function() {
+      installAntiv(host);
+  });
+//  textElement.text("Удаление...");
+//    sendAjaxRequest("/antivirus", "remove=antiv&data=" + $("#tb_name").text(), function(data) {
+//      $("#antiv_name").text("---");
+//      $("#btn_rm_antiv").prop( "disabled", true);
+//      hrefElement.show();
+//      var listOfNames = JSON.parse(data);
+//      if(listOfNames.state === "done") {
+//        textElement.text("---");
+//        runCommand[host] = false;
+//        btnScanStart.prop("disabled", true);
+//        installAntiv(host);
+//      } else {
+//        textElement.text(saveText);
+//      }
+//    });
+}
+
+/* Установка выбранного в списке антивируса */
+function installAntiv(host) {
+  if(runCommand[host] === true) { return; } // Выход если выполняется команда установки антивируса
+  else { runCommand[host] = true; } 
+  var lbAntivName = $("#antiv_name");
+  if(lbAntivName.text().indexOf("Kasper") >= 0 || lbAntivName.text().indexOf("dr.Web") >= 0) {
+    if(confirm("Переустановить антивирус?")) {
+      runCommand[host] = false;
+      reinstallAntivirus(host);
+    }
+    return;
+  }
+  
+  lbAntivName.text("Установка...");
+  $("#btn_install_antiv").prop( "disabled", true);
+  var textElement = hostObjects[host].av_state.find('span');
+  var hrefElement = hostObjects[host].av_state.find('a');
+  var btnScanStart = $("#btn_start_scan_and_save");
+  textElement.text("Установка...");
+  hrefElement.hide();
+  sendAjaxRequest("/antivirus", "install=antiv&data=" + host + ":" + $( "#cbox_antiv option:selected" ).text(), function(data) {
+    var timerId = setInterval(function() {
+    sendAjaxRequest("/antivirus", "install=antiv&host=" + host + "&command=state", function(data) {
+      var listOfNames = JSON.parse(data);
+      if(listOfNames["state"] === "stop") {
+        clearInterval(timerId);
+        hrefElement.show();
+        textElement.text(listOfNames.av_version);
+        lbAntivName.text(listOfNames.av_version);
+        $("#btn_rm_antiv").prop( "disabled", false);
+        $("#btn_install_antiv").prop( "disabled", false);
+        runCommand[host] = false; // Можно устанавливать заново
+        btnScanStart.prop("disabled", false);
+        antivirusGetList();
+        return;
+      } else if (listOfNames["state"] === "process") {
+        // Может быть в будущем сделаю счетчик
+        textElement.text("Установка...");
+      }
+    });
+     }, 2000);
+  });
+}
+
+function removeAntiv(host, func) {
+  if(runCommand[host] === true) { return; } // Выход если выполняется команда установки антивируса
+  else { runCommand[host] = true; } 
+  $("#antiv_name").text("Удаление...");
+  var textElement = hostObjects[host].av_state.find('span');
+  var hrefElement = hostObjects[host].av_state.find('a');
+  var hrefScanElement = hostObjects[host].av_check.find('a');
+  var textUpdate = hostObjects[host].av_update.find('span');
+  var hrefUpdate = hostObjects[host].av_update.find('a');
+  var btnScanStart = $("#btn_start_scan_and_save");
+  hrefElement.hide();
+  var saveText = textElement.text();
+  textElement.text("Удаление...");
+    sendAjaxRequest("/antivirus", "remove=antiv&data=" + $("#tb_name").text(), function(data) {
+      var timerId = setInterval(function() {
+      sendAjaxRequest("/antivirus", "remove=antiv&host_state=" + host, function(data) {
+        var listOfNames = JSON.parse(data);
+        if(listOfNames["state"] === "stop") {
+           clearInterval(timerId);
+          $("#antiv_name").text("---");
+          $("#btn_rm_antiv").prop( "disabled", true);
+          hrefElement.show();
+            runCommand[host] = false;
+            btnScanStart.prop("disabled", true);
+            textElement.text("---");
+            hrefScanElement.hide();
+            hrefUpdate.hide();
+            textUpdate.text('---');
+            if(func != "undefined") {
+                func();
+            }
+          return;
+        } else if (listOfNames["state"] === "process") {
+        // Может быть в будущем сделаю счетчик
+          textElement.text("Удаление...");
+        }
+      });
+    }, 2000);
+  });
+}
+/* Назначение типа сканирования для выбранного хоста + список сканируемых директорий */
+function scanHostType() {
+  "use strict";
+  sendAjaxRequest("/antivirus", "scan=host_type&host=" + $("#tb_name").text() +
+                  "&type=" + $('input[name=rb_scan]:checked', '#host_scan').val() + "&dir_list=" +
+                  hostSelectedDirs[$("#tb_name").text()], function(data) {
+    antivirusGetList();
+  });
+}
+/* Отображение диалога со списком каталогов для проверки */
+function showAVDialogDirs() {
+  $("#tbl_scan_object tr").remove();
+  $("#btn_scan_type_reset").prop("disabled", false);
+  $("#dialog_dirs").dialog({
+    width: 'auto',
+    height: 'auto'
+  });
+  var saveDirList = hostSelectedDirs[$("#tb_name").text()].split(";");
+  for(var i in saveDirList) {
+    if(saveDirList[i].length > 0) {
+      addRowDirList(saveDirList[i]);
+    }
+  }
+}
+/* Отображение диалога добавления очередного каталога */
+function showAVDialogObjAdd() {
+   $("#dialog_object_add").dialog({
+           width: 'auto',
+           height: 'auto'
+    });
+    requestDirList("/");
+}
+
+function setCurrentName(obj) {
+  var name = $(obj).text();
+  $("#insert_path").text(name);
+}
+/* Открыть директорию */
+function openDir(obj) {
+  var dirName = $(obj).text();
+  var fsPathName = $("#fs_path_name").text();
+  requestDirList($("#fs_path_name").text() + (fsPathName === "/" ? "" : "/") + dirName);
+}
+/* Запрос списка объектов внутри каталога */
+function requestDirList(path)
+{
+  "use strict";
+  $("#tbl_filesystem").empty();
+  $("#fs_path_name").text(path)
+  sendAjaxRequest("/antivirus", "get=dir_list&host=" + $("#tb_name").text() + "&dir=" + path, function(data) {
+    var listOfNames = JSON.parse(data);
+    for (var i in listOfNames.data) {
+      addRow(listOfNames.data[i].fs_name, listOfNames.data[i].fs_type);
+    }
+  });
+  /* Добавление строки в таблицу */
+  function addRow(fs_name, fs_type) {
+    var trObj = document.createElement("TR");
+    if(fs_type === "file") {
+      createFSImageTD("images/state_write.png");
+      createFileTD(fs_name);
+    }
+    else if(fs_type === "dir") {
+      createFSImageTD("images/Folder-icon.png");
+      createDirTD(fs_name);
+    }
+    document.getElementById("tbl_filesystem").appendChild(trObj);
+    /* Создание элемента td с файлом в строке таблицы */
+    function createFileTD(text) {
+      $('<td/>', {align: "left", text: text, on: { click: function(event){setCurrentName(this);}},}).appendTo(trObj);
+    }
+    /* Создание элемента td с директорией в строке таблицы */
+    function createDirTD(text) {
+      $('<td/>', {align: "left", text: text, on: {
+        click: function(event){setCurrentName(this);},
+        dblclick: function(event){openDir(this);}},}).appendTo(trObj);
+    }
+    /* Создание элемента td с картинкой (файл/папка) в строке таблицы */
+    function createFSImageTD(img_name) {
+      $('<td/>', {align: "center", append: $('<img>', { src: img_name, width: 24, height: 24 }),}).appendTo(trObj);
+    }
+  }
+}
+/* Вернуться по дереву каталогов назад */
+function backPath() {
+  var pathLast = $("#fs_path_name").text();
+  var index = pathLast.lastIndexOf("/");
+  pathLast = pathLast.substr(0, index);
+  if(0 === pathLast.length) {
+    pathLast = "/";
+  }
+  requestDirList(pathLast);
+}
+/* Установка очередного каталога */
+function setInsertPath() {
+  $('#dialog_object_add').dialog("close");
+  var name = $("#fs_path_name").text();
+  name = (name === "/" ? "" : name) + "/" + $("#insert_path").text();
+  addRowDirList(name);
+}
+
+var countHostDir = 0; /* Счетчик папок */
+/* Добаляет еще одну строку с папкой для проверки */
+function addRowDirList(fullPath) {
+  var trObj = document.createElement("TR");
+  document.getElementById("tbl_scan_object").appendChild(trObj);
+  createDirsTD(countHostDir + 1);
+  createDirsTD(fullPath);
+  createDirsTDImage("images/delete.png");
+  countHostDir++;
+  /* Создание элемента td в строке таблицы */
+  function createDirsTD(text) {
+    $('<td/>', {align: "left", text: text,}).appendTo(trObj);
+  }
+  /* Создание элемента td с картинкой и функцией в строке таблицы */
+  function createDirsTDImage(img_name, func) {
+    $('<td/>', {align: "center", append: $('<img>', {
+      src: img_name, width: 24, height: 24, on: {
+        click: function(event) {removeDirsTR(this);}
+      } }),}).appendTo(trObj);
+  }
+}
+
+/* Удаление строки из таблицы */
+function removeDirsTR(obj) {
+  $(obj).closest("tr").remove();
+  countHostDir--;
+}
+
+/* Применение набора папок для выборочного сканирования */
+function setDirList() {
+  dirsForScanHost = "";
+  $('#dialog_dirs').dialog("close");
+  $('#tbl_scan_object tr').each(function(){
+    var count = 0;
+    $(this).find('td').each(function(){
+      if(count === 1) {
+        dirsForScanHost += $(this).text() + ";";
+      }
+      count++;
+    });
+  });
+  dirsForScanHost = dirsForScanHost.substring(0, dirsForScanHost.length - 1);
+  hostSelectedDirs[$("#tb_name").text()] = dirsForScanHost;
+}

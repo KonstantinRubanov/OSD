@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>antivirus</title>
+    <link href="../css/antivirus.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../js/antivirus.js" async></script>
+</head>
+
+<body>
+  <div id="antivirus_block">
+    <div class="title_div">
+      <div class="div_loader">
+        <img id="av_img_loader" src="images/loader.gif" width="32px" height="32px" style="padding: 5px;"/>
+        <img id="av_img_loader_start" class="btn_updates" src="images/update.png" width="32px" height="32px" onclick="antivirusGetList()"/>
+      </div>
+      <p align="center" class="main_group_name">Антивирусная проверка</p>
+    </div>
+<!--    <div class="main_right_panel" style="float: right;">
+      <div>              
+        <button id="antivirus_scan_hosts_btn" class="defbutton" onclick="openScanFullSettings()" >Проверка АРМ
+          <img id="img_antiv_scan_all" src="images/loader.gif" width="32px" height="32px" />
+        </button>
+      </div>
+    </div>-->
+    <div style="height: 300px; overflow-y: scroll;">
+    <table border="0" cellpadding="5" cellspacing="0" class="main_table" id="antivirus_main_table">
+      <thead class="main_tbl_head">
+        <tr>
+          <th align="left"><input type="checkbox" class="radio" value="check_av_all_on" name="check_av_sl"/></th>
+          <th align="left">№</th>
+          <th align="center">Хост</th>
+          <th align="center">IP адрес</th>
+          <th align="center">Антивирус</th>
+          <th align="center">Проверка</th>
+          <th align="center">Журнал</th>
+          <th align="center">Обновление</th>
+        </tr>
+      </thead>
+      <tbody class="main_tbl_body" id="tbl_antivirus"></tbody>
+    </table>
+    </div>
+    <button id="antivirus_scan_hosts_btn" class="defbutton" onclick="openScanFullSettings()" >Проверка АРМ
+          <img id="img_antiv_scan_all" src="images/delete.png" width="32px" height="32px" />
+        </button>
+ 
+        
+    
+    </div>
+    <div id="dialog_container" class="dialog_window" title="Настройка антивируса на хосте">
+        <div id="dialog_form">
+          <div id="toolBar">
+              <span id="tb_name">HOST_NAME</span>
+          </div>
+
+        <div id="antiv_install" class="group_div" style="height: 150px;">
+            <p class="group_name"><b>Установка/удаление антивируса</b></p>
+            <div id="antiv_installed" class="cmn_view_antiv">Установлен: <b><span id="antiv_name"></span></b>
+              <button class="group_buttons" id="btn_rm_antiv" style="float: right;">Удалить антивирус с хоста</button>
+            </div>
+            <div class="cmn_view_antiv">
+              <select id="cbox_antiv"></select>
+              <button class="group_buttons" style="float: right;" id="btn_install_antiv" disabled>Установить антивирус</button>
+            </div>
+        </div>
+
+        <div id="host_scan" class="group_div"  style="height: 250px;" >
+            <p class="group_name"><b>Сканирование хоста</b></p>
+            <p class="cmn_view_antiv"><input name="rb_scan" type="radio" value="fast" checked>Быстрое сканирование</p>
+            <p class="cmn_view_antiv"><input name="rb_scan" type="radio" value="full">Полное сканирование</p>
+            <p class="cmn_view_antiv"><input name="rb_scan" type="radio" value="select">Выборочное сканирование <button id="set_dir_list" onclick="showAVDialogDirs()">...</button><span id="dir_list"></span></p>
+            <div class="cmn_view_antiv">
+                <button class="group_buttons" id="btn_scan_type_reset">Отменить изменения</button>
+                <button class="group_buttons" style="float: right;" onclick="scanHostType()" id="btn_save_scan_type">Применить</button>
+            </div>
+        </div>
+        <br>
+        <div class="basement">
+          <button class="group_buttons" onclick="antivSaveTypeAndScan()" id="btn_start_scan_and_save">Сканировать
+            <img id="img_antiv_scan_dialog" src="images/loader.gif" width="24px" height="24px" />
+          </button>
+          <button class="group_buttons" onclick="complete()">Закрыть</button>
+        </div>
+        </div>
+    </div>
+    <div id="dialog_dirs" class="dialog_window" title="Выбор каталогов для проверки">
+      <img class="antv_btn_add_folder" src="images/folder-add.png" onclick="showAVDialogObjAdd()"/>
+      <div>
+        <table border="0" width="100%" height="300dp" cellpadding="5" cellspacing="0" class="tbl_files">
+          <tr valign="top" height="32px"><th>№</th><th>Элемент для проверки</th><th>Удалить</th></tr>
+          <tbody id="tbl_scan_object">
+          </tbody>
+        </table>
+      </div>
+      <div style="float: right;" >
+        <!-- <button class="group_buttons" onclick="showAVDialogObjAdd()">Добавить</button> -->
+        <button class="group_buttons" onclick="setDirList()">Закрыть</button>
+      </div>
+    </div>
+    
+    <!-- full scan settings -->
+    <div id="dialog_full_scan" class="dialog_window"  style="display: none; z-index:9999;" title="Антивирусная проверка сети">
+    
+    <p class="group_name">Настройки типа сканирования сети</p>    
+    <p><input type="radio" class="radio" value="check_av_all_policy_host"  name="check_av_sl_type" checked/>Использовать текущие параметры антивирусной проверки</p>
+    <p><input type="radio" class="radio" value="check_av_all_policy_lan" name="check_av_sl_type"/>Задать общие параметры антивирусной проверки для всех АРМ</p>   
+
+    <div class="is_type_dialog_full_scan" style="display: none; z-index:9999;" >
+    <p class="group_name"><b>Сканирование объектов АРМ</b></p>
+    <p><input name="rb_scan_full_lan" type="radio" value="fast" checked>Быстрое сканирование</p>
+    <p><input name="rb_scan_full_lan" type="radio" value="full">Полное сканирование</p>
+    <p><input name="rb_scan_full_lan" type="radio" value="select">Выборочное сканирование <button id="set_dir_list_full_btn" onclick="OpenDirsFullLan()">...</button><span id="dir_list_full_lan_select"></span></p>
+    </div>
+    
+      <!-- <div style="float: left;" >  
+      <button class="group_buttons" onclick="showAVDialogDirsFullListSettingsReplace()">Сохранить</button>
+      </div>-->
+      <div style="float: right;" >  
+      <button class="group_buttons" onclick="antivirusCheckAllHosts()">Запуск</button> <button class="group_buttons" onclick="antivirusCheckAllClose()">Закрыть</button>
+      </div>
+      
+     <div id="dialog_full_scan_dirs" class="dialog_window" style="display: none; z-index:9999;" title="Объекты антивирусной проверки" > 
+       <img class="antv_btn_add_folder" src="images/folder-add.png" onclick="showAVDialogDirsFullScan()"/>
+      <div style="height: 320px; overflow-y: scroll;">
+        <table border="0" width="100%" cellpadding="5" cellspacing="0" class="full_tbl_files">
+          <tr valign="top" height="32px"><th>№</th><th>Элемент для проверки</th><th>Удалить</th></tr>
+          <tbody id="full_tbl_scan_object">
+          </tbody>
+        </table>
+      </div>
+      
+        <div style="float: right;" >  
+         <button class="group_buttons" onclick="antivirusCheckAllCloseDirs()">Закрыть</button>
+        </div>
+     </div>
+      
+    </div>
+    <!-- full scan settings -->
+    
+    <div id="dialog_journal" class="dialog_window" title="Вывод журнала">
+      <div id="av_journal_text">
+      </div>
+    </div>
+</body>
+</html>

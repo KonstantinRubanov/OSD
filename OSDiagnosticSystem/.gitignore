@@ -1,0 +1,9 @@
+# KDE directory preferences
+.directory
+*.user
+.~lock.*
+logs
+*.pro.user.4.9-pre1
+*.pro.user.*
+etc/www/backup
+etc/www/.vscode
